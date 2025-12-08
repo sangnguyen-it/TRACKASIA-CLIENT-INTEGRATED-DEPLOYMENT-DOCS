@@ -20,14 +20,14 @@
 ## 2) Sơ đồ tổng quan tích hợp
 *Hình thức: poster tổng thể, nhóm chức năng và mối liên hệ Partner ↔ TrackAsia API ↔ Data/Status.*
 
-![Sơ đồ tổng hợp tích hợp API](https://raw.githubusercontent.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/images/sodo-all.jpg)
+![Sơ đồ tổng hợp tích hợp API](https://github.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/blob/main/images/sodo-all.jpg)
 
 ---
 
 ## 3) Luồng Booking end‑to‑end
 *Minh họa các bước: Auth → Tạo đơn → Theo dõi → Chi tiết → Cập nhật → Huỷ → Trạng thái.*
 
-![Sơ đồ luồng Booking](https://raw.githubusercontent.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/images/sodo-booking.jpg)
+![Sơ đồ luồng Booking](https://github.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/blob/main/images/sodo-booking.jpg)
 
 **Bảng trạng thái (tham chiếu nhanh)**
 
@@ -52,7 +52,7 @@
 ## 4) "Nhắc việc" tích hợp theo nhóm API
 *Checklist trực quan cho đội tích hợp – hiển thị headers chung, nhóm endpoint và HTTP codes.*
 
-![Sơ đồ nhắc việc tích hợp API](https://raw.githubusercontent.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/images/sodo-other.jpg)
+![Sơ đồ nhắc việc tích hợp API](https://github.com/sangnguyen-it/TRACKASIA-CLIENT-INTEGRATED-DEPLOYMENT-DOCS/blob/main/images/sodo-other.jpg)
 
 ---
 
