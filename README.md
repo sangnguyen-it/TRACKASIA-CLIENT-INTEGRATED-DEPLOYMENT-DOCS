@@ -1,4 +1,4 @@
-# TrackAsia TMS Client API – Kế hoạch tích hợp & tài liệu tham chiếu (v2)
+# TrackAsia TMS Client API – Kế hoạch tích hợp & tài liệu tham chiếu
 
 > **Mục tiêu tài liệu**  
 > Cung cấp một bộ hướng dẫn tích hợp cho đối tác khi kết nối nhóm API *Client* của TrackAsia TMS. Tài liệu tập trung vào **đặc tả API**, **mô hình dữ liệu**, **quy trình triển khai**, **tiêu chuẩn bảo mật**, kèm **hình minh họa** đã chuẩn bị sẵn. (Loại bỏ các flowchart tự sinh; dùng hình chính xác do bạn cung cấp.)
