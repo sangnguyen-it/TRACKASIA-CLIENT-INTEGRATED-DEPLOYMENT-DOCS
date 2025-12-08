@@ -52,19 +52,896 @@
 
 ---
 
-## 5) Đặc tả kỹ thuật (API Reference)
+## 5. CHI TIẾT API ENDPOINTS
 
-### 5.1 Headers & HTTP Codes
-**Headers chung**
+### 5.1 Tổng hợp API
 
-| Header | Giá trị |
-|---|---|
-| `Authorization` | `{token_user}` (bắt buộc nếu endpoint yêu cầu auth) |
-| `Content-Type` | `application/json` **hoặc** `application/x-www-form-urlencoded` |
+| # | Method | Endpoint | Mô tả | Auth | Content-Type |
+|---|--------|----------|-------|------|--------------|
+| 1 | POST | `/clients/login` | Đăng nhập | ❌ | form-urlencoded |
+| 2 | POST | `/clients/logout` | Đăng xuất | ✅ | - |
+| 3 | POST | `/clients/update-current-password` | Đổi mật khẩu | ✅ | form-urlencoded |
+| 4 | POST | `/clients/update-user` | Cập nhật user | ✅ | form-urlencoded |
+| 5 | POST | `/clients/update-avarta` | Cập nhật avatar | ✅ | form-urlencoded |
+| 6 | GET | `/clients/bookings` | Danh sách đơn | ✅ | - |
+| 7 | GET | `/clients/bookings/{id}` | Chi tiết đơn | ✅ | - |
+| 8 | POST | `/clients/bookings` | Tạo đơn mới | ✅ | application/json |
+| 9 | PUT | `/clients/bookings/{id}` | Cập nhật đơn | ✅ | application/json |
+| 10 | DELETE | `/clients/bookings/{id}` | Xóa đơn | ✅ | - |
+| 11 | GET | `/clients/notifications` | Danh sách thông báo | ✅ | - |
+| 12 | GET | `/clients/notifications/{id}` | Chi tiết thông báo | ✅ | - |
+| 13 | DELETE | `/clients/notifications/{id}` | Xóa thông báo | ✅ | - |
+| 14 | GET | `/clients/catalogues` | Danh sách danh mục | ✅ | - |
+| 15 | POST | `/devices` | Đăng ký thiết bị | ❌ | form-urlencoded |
+| 16 | PUT | `/devices/{id}` | Cập nhật thiết bị | ✅ | form-urlencoded |
+| 17 | POST | `/upload-base64` | Upload file | ✅ | form-urlencoded |
 
-**HTTP codes**: `200/201` OK/Created · `400/422` Invalid · `401` Unauthorized (→ re-login) · `403` Forbidden · `404` Not Found · `500` Server Error.
+---
 
-**Khung lỗi chuẩn**
+### 5.2 API Xác thực (Authentication)
+
+#### 5.2.1 🔐 Đăng nhập (Login)
+
+**Endpoint:** `POST /clients/login`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/login` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ❌ Không |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `loginkey` | String | ✅ | Email hoặc số điện thoại đăng ký | `user@example.com` hoặc `0901234567` |
+| `password` | String | ✅ | Mật khẩu tài khoản | `MyP@ssw0rd123` |
+| `device_id` | String | ✅ | UUID duy nhất của thiết bị | `550e8400-e29b-41d4-a716-446655440000` |
+
+**Request mẫu:**
+
+```http
+POST /api/v1/clients/login HTTP/1.1
+Host: tms.track-asia.com
+Content-Type: application/x-www-form-urlencoded
+
+loginkey=user@example.com&password=MyP@ssw0rd123&device_id=550e8400-e29b-41d4-a716-446655440000
+```
+
+**Response thành công (HTTP 200):**
+
+```json
+{
+  "data": {
+    "id": 12345,
+    "name": "Nguyễn Văn A",
+    "phone_number": "0901234567",
+    "email": "user@example.com",
+    "token_user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NSwiZXhwIjoxNzM0MDAwMDAwfQ.xxxxx",
+    "image": "/uploads/avatars/user12345.jpg",
+    "address": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+    "birthday": "1990-05-15",
+    "current_device_id": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+**Response thất bại:**
+
+```json
+{
+  "success": "false",
+  "data": "Email hoặc mật khẩu không đúng"
+}
+```
+
+> [!IMPORTANT]
+> **Xử lý ảnh đại diện:** Nếu trường `image` không chứa URL đầy đủ, ghép với Base URL:
+> `https://tms.track-asia.com` + `/uploads/avatars/user12345.jpg`
+
+---
+
+#### 5.2.2 🚪 Đăng xuất (Logout)
+
+**Endpoint:** `POST /clients/logout`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/logout` |
+| Auth Required | ✅ Có |
+
+**Headers:**
+
+```http
+Authorization: {token_user}
+```
+
+**Response thành công (HTTP 200):**
+
+```json
+{
+  "message": "Logout successful"
+}
+```
+
+---
+
+#### 5.2.3 🔑 Đổi mật khẩu
+
+**Endpoint:** `POST /clients/update-current-password`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/update-current-password` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ✅ Có |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả |
+|---------|------|----------|-------|
+| `current_password` | String | ✅ | Mật khẩu hiện tại |
+| `new_password` | String | ✅ | Mật khẩu mới (tối thiểu 6 ký tự) |
+| `new_confirm_password` | String | ✅ | Xác nhận mật khẩu mới (phải khớp) |
+
+**Request mẫu:**
+
+```http
+POST /api/v1/clients/update-current-password HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+Content-Type: application/x-www-form-urlencoded
+
+current_password=OldP@ss123&new_password=NewP@ss456&new_confirm_password=NewP@ss456
+```
+
+**Response thành công:**
+
+```json
+{
+  "message": "Password updated successfully"
+}
+```
+
+---
+
+### 5.3 API Quản lý tài khoản (Account)
+
+#### 5.3.1 👤 Cập nhật thông tin
+
+**Endpoint:** `POST /clients/update-user`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/update-user` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ✅ Có |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `name` | String | ❌ | Họ tên đầy đủ | `Nguyễn Văn B` |
+| `address` | String | ❌ | Địa chỉ | `456 Lê Lợi, Q1, TP.HCM` |
+| `image` | String | ❌ | URL ảnh (sau khi upload) | `/uploads/avatars/new.jpg` |
+| `birthday` | String | ❌ | Ngày sinh (YYYY-MM-DD) | `1990-06-20` |
+| `email` | String | ❌ | Email mới | `newmail@example.com` |
+
+**Response thành công:**
+
+```json
+{
+  "data": {
+    "id": 12345,
+    "name": "Nguyễn Văn B",
+    "phone_number": "0901234567",
+    "email": "newmail@example.com",
+    "address": "456 Lê Lợi, Q1, TP.HCM",
+    "birthday": "1990-06-20",
+    "image": "/uploads/avatars/user12345.jpg"
+  }
+}
+```
+
+---
+
+#### 5.3.2 🖼️ Cập nhật Avatar
+
+**Endpoint:** `POST /clients/update-avarta`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/update-avarta` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ✅ Có |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả |
+|---------|------|----------|-------|
+| `img` | String | ✅ | Dữ liệu ảnh Base64 (**KHÔNG** bao gồm prefix `data:image/...;base64,`) |
+| `img_format` | String | ✅ | Định dạng: `jpeg`, `png`, `jpg` |
+
+> [!CAUTION]
+> Trường `img` chỉ chứa phần data Base64 thuần túy, KHÔNG bao gồm prefix như `data:image/jpeg;base64,`
+
+**Request mẫu:**
+
+```http
+POST /api/v1/clients/update-avarta HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+Content-Type: application/x-www-form-urlencoded
+
+img=/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYH...&img_format=jpeg
+```
+
+**Response thành công:**
+
+```json
+{
+  "data": {
+    "image": "/uploads/avatars/user12345_1702000000.jpg"
+  }
+}
+```
+
+---
+
+### 5.4 API Quản lý đơn hàng (Booking)
+
+#### 5.4.1 📋 Lấy danh sách đơn hàng
+
+**Endpoint:** `GET /clients/bookings`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings` |
+| Auth Required | ✅ Có |
+
+**Query Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `status[]` | String[] | ❌ | Lọc theo trạng thái (có thể truyền nhiều giá trị) | `status[]=pending&status[]=delivering` |
+
+**Request mẫu:**
+
+```http
+GET /api/v1/clients/bookings?status[]=pending&status[]=delivering HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+```
+
+**Response thành công:**
+
+```json
+{
+  "data": [
+    {
+      "id": 98765,
+      "booking_code": "BK20251210001",
+      "booking_code2": "REF001",
+      "status": "pending",
+      "person_in_charge": "Nguyễn Văn B",
+      "contact_number": "0912345678",
+      "company_name": "Công ty ABC",
+      "customer_email": "customer@company.com",
+      "charges": "500000",
+      "distance": "5.2",
+      "weight": "25.5",
+      "volume": "0.5",
+      "quantity": "3",
+      "description": "Hàng dễ vỡ, cần cẩn thận",
+      "reference_no": "REF123",
+      "postal_code": "700000",
+      "site": "Site A",
+      "unit_nos": "Unit 1",
+      "salary": "50000",
+      "catalogue_id": "1",
+      "catalogue_name": "Hàng điện tử",
+      "reason_reject": null,
+      "current_latitude": 10.7760,
+      "current_longitude": 106.6950,
+      "location_from": {
+        "id": 1,
+        "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+        "latitude": 10.7769,
+        "longitude": 106.7009,
+        "distance": 0,
+        "position": 0,
+        "booking_id": 98765,
+        "created_at": "2025-12-08T10:30:00Z",
+        "updated_at": "2025-12-08T10:30:00Z"
+      },
+      "location_to": {
+        "id": 2,
+        "name": "456 Lê Lợi, Quận 3, TP.HCM",
+        "latitude": 10.7756,
+        "longitude": 106.6867,
+        "distance": 5.2,
+        "position": 1,
+        "booking_id": 98765,
+        "created_at": "2025-12-08T10:30:00Z",
+        "updated_at": "2025-12-08T10:30:00Z"
+      },
+      "locations_attributes": [],
+      "schedule_time": "2025-12-10",
+      "etd_time": "2025-12-10 08:00",
+      "eta_time": "2025-12-10 17:00",
+      "updated_at": "2025-12-08T10:30:00Z"
+    }
+  ]
+}
+```
+
+---
+
+#### 5.4.2 🔍 Lấy chi tiết đơn hàng
+
+**Endpoint:** `GET /clients/bookings/{id}`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings/{id}` |
+| Auth Required | ✅ Có |
+
+**Path Parameters:**
+
+| Tham số | Kiểu | Mô tả |
+|---------|------|-------|
+| `id` | Integer | ID của đơn hàng |
+
+**Request mẫu:**
+
+```http
+GET /api/v1/clients/bookings/98765 HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+```
+
+**Response:** Tương tự response của API lấy danh sách nhưng chỉ trả về 1 object (không phải array).
+
+---
+
+#### 5.4.3 ➕ Tạo đơn hàng mới
+
+**Endpoint:** `POST /clients/bookings`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |
+
+**Request Body - Các trường chính:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `address_from` | String | ✅ | Địa chỉ điểm lấy hàng | `123 Nguyễn Huệ, Q1, TP.HCM` |
+| `address_to` | String | ✅ | Địa chỉ điểm giao hàng | `456 Lê Lợi, Q3, TP.HCM` |
+| `schedule_time` | String | ✅ | Ngày giao hàng (YYYY-MM-DD) | `2025-12-10` |
+| `contact_number` | String | ✅ | Số điện thoại liên hệ | `0912345678` |
+| `reference_no` | String | ✅ | Mã tham chiếu/Mã đơn của bạn | `REF-001` |
+| `etd_time` | String | ✅ | Thời gian xuất phát dự kiến | `2025-12-10 08:00` |
+| `eta_time` | String | ✅ | Thời gian đến dự kiến | `2025-12-10 17:00` |
+| `catalogue_id` | String | ✅ | ID loại hàng hóa (từ API catalogues) | `1` |
+| `company_name` | String | ✅ | Tên công ty | `Công ty ABC` |
+| `weight` | String | ✅ | Khối lượng (kg) | `25.5` |
+| `volume` | String | ✅ | Thể tích (m³) | `0.5` |
+| `locations_attributes` | Array | ✅ | Danh sách điểm dừng (tối thiểu 2) | *Xem bên dưới* |
+
+**Request Body - Các trường tùy chọn:**
+
+| Tham số | Kiểu | Mô tả | Ví dụ |
+|---------|------|-------|-------|
+| `customer_email` | String | Email khách hàng | `customer@company.com` |
+| `charges` | String | Phí vận chuyển (VND) | `500000` |
+| `description` | String | Ghi chú, mô tả hàng hóa | `Hàng dễ vỡ, cần cẩn thận` |
+| `distance` | String | Khoảng cách (km) | `5.2` |
+| `quantity` | String | Số lượng kiện hàng | `3` |
+| `latitude_from` | String | Vĩ độ điểm lấy hàng | `10.7769` |
+| `longitude_from` | String | Kinh độ điểm lấy hàng | `106.7009` |
+| `latitude_to` | String | Vĩ độ điểm giao hàng | `10.7756` |
+| `longitude_to` | String | Kinh độ điểm giao hàng | `106.6867` |
+
+**Cấu trúc `locations_attributes`:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả |
+|---------|------|----------|-------|
+| `name` | String | ✅ | Tên/địa chỉ điểm dừng |
+| `latitude` | Double | ✅ | Vĩ độ (VD: 10.7769) |
+| `longitude` | Double | ✅ | Kinh độ (VD: 106.7009) |
+| `position` | Integer | ✅ | Thứ tự: 1=điểm đi, 2=điểm đến, 3+=điểm dừng |
+| `distance` | Double | ❌ | Khoảng cách từ điểm trước (km) |
+| `id` | Integer | ❌ | ID điểm (để trống khi tạo mới) |
+| `_destroy` | Boolean | ❌ | `true` để xóa điểm (dùng khi cập nhật) |
+
+**Request mẫu đầy đủ:**
+
+```json
+{
+  "address_from": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+  "address_to": "456 Lê Lợi, Quận 3, TP.HCM",
+  "company_name": "Công ty ABC",
+  "schedule_time": "2025-12-10",
+  "contact_number": "0912345678",
+  "customer_email": "customer@company.com",
+  "charges": "500000",
+  "description": "Hàng dễ vỡ, cần cẩn thận khi vận chuyển",
+  "distance": "5.2",
+  "reference_no": "REF-001",
+  "catalogue_id": "1",
+  "etd_time": "2025-12-10 08:00",
+  "eta_time": "2025-12-10 17:00",
+  "quantity": "3",
+  "weight": "25.5",
+  "volume": "0.5",
+  "latitude_from": "10.7769",
+  "longitude_from": "106.7009",
+  "latitude_to": "10.7756",
+  "longitude_to": "106.6867",
+  "locations_attributes": [
+    {
+      "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+      "latitude": 10.7769,
+      "longitude": 106.7009,
+      "distance": 0,
+      "position": 1
+    },
+    {
+      "name": "456 Lê Lợi, Quận 3, TP.HCM",
+      "latitude": 10.7756,
+      "longitude": 106.6867,
+      "distance": 5.2,
+      "position": 2
+    }
+  ]
+}
+```
+
+**Response thành công (HTTP 201):**
+
+```json
+{
+  "data": {
+    "id": 98766,
+    "booking_code": "BK20251210002",
+    "status": "pending",
+    "contact_number": "0912345678",
+    "company_name": "Công ty ABC",
+    "charges": "500000",
+    "distance": "5.2",
+    "reference_no": "REF-001",
+    "location_from": {
+      "id": 10001,
+      "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+      "latitude": 10.7769,
+      "longitude": 106.7009,
+      "position": 1
+    },
+    "location_to": {
+      "id": 10002,
+      "name": "456 Lê Lợi, Quận 3, TP.HCM",
+      "latitude": 10.7756,
+      "longitude": 106.6867,
+      "position": 2
+    },
+    "schedule_time": "2025-12-10",
+    "updated_at": "2025-12-08T10:30:00Z"
+  }
+}
+```
+
+---
+
+#### 5.4.4 ✏️ Cập nhật đơn hàng
+
+**Endpoint:** `PUT /clients/bookings/{id}`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings/{id}` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |
+
+**Lưu ý:** Chỉ gửi các trường cần cập nhật. Để xóa điểm dừng, thêm `"_destroy": true`.
+
+**Request mẫu (cập nhật thông tin + sửa điểm):**
+
+```json
+{
+  "contact_number": "0912345679",
+  "charges": "550000",
+  "description": "Cập nhật: Thêm ghi chú mới",
+  "locations_attributes": [
+    {
+      "id": 10001,
+      "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+      "latitude": 10.7769,
+      "longitude": 106.7009,
+      "position": 1
+    },
+    {
+      "id": 10002,
+      "name": "789 Hai Bà Trưng, Quận 1, TP.HCM",
+      "latitude": 10.7800,
+      "longitude": 106.7050,
+      "position": 2
+    }
+  ]
+}
+```
+
+---
+
+#### 5.4.5 🗑️ Xóa đơn hàng
+
+**Endpoint:** `DELETE /clients/bookings/{id}`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings/{id}` |
+| Auth Required | ✅ Có |
+
+**Request mẫu:**
+
+```http
+DELETE /api/v1/clients/bookings/98765 HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+```
+
+**Response thành công:**
+
+```json
+{
+  "message": "Booking deleted successfully"
+}
+```
+
+---
+
+### 5.5 API Thông báo (Notifications)
+
+#### 5.5.1 📬 Lấy danh sách thông báo
+
+**Endpoint:** `GET /clients/notifications`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/notifications` |
+| Auth Required | ✅ Có |
+
+**Query Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Mặc định |
+|---------|------|----------|-------|----------|
+| `page` | String | ❌ | Số trang | `1` |
+| `limit` | String | ❌ | Số item mỗi trang | `20` |
+
+**Request mẫu:**
+
+```http
+GET /api/v1/clients/notifications?page=1&limit=20 HTTP/1.1
+Host: tms.track-asia.com
+Authorization: {token_user}
+```
+
+**Response thành công:**
+
+```json
+{
+  "data": [
+    {
+      "id": "1001",
+      "target_id": "98765",
+      "title": "Đơn hàng đã được xác nhận",
+      "content": "Đơn hàng BK20251210001 đã được xác nhận và đang chờ lấy hàng",
+      "booking_code": "BK20251210001",
+      "view_type": "booking",
+      "action_type": "status_change_confirm",
+      "reason_reject": null,
+      "created_at": "2025-12-09T08:00:00Z"
+    },
+    {
+      "id": "1002",
+      "target_id": "98765",
+      "title": "Đơn hàng đang được giao",
+      "content": "Đơn hàng BK20251210001 đang được giao đến địa chỉ của bạn",
+      "booking_code": "BK20251210001",
+      "view_type": "booking",
+      "action_type": "status_change_delivering",
+      "reason_reject": null,
+      "created_at": "2025-12-10T09:30:00Z"
+    }
+  ]
+}
+```
+
+---
+
+#### 5.5.2 🔍 Chi tiết thông báo
+
+**Endpoint:** `GET /clients/notifications/{id}`
+
+**Response:** Tương tự 1 item trong danh sách.
+
+---
+
+#### 5.5.3 🗑️ Xóa thông báo
+
+**Endpoint:** `DELETE /clients/notifications/{id}`
+
+**Response thành công:**
+
+```json
+{
+  "message": "Notification deleted successfully"
+}
+```
+
+---
+
+### 5.6 API Danh mục (Catalogues)
+
+#### 5.6.1 📁 Lấy danh sách danh mục
+
+**Endpoint:** `GET /clients/catalogues`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/catalogues` |
+| Auth Required | ✅ Có |
+
+**Response thành công:**
+
+```json
+{
+  "data": [
+    {"id": "1", "name": "Hàng điện tử"},
+    {"id": "2", "name": "Thực phẩm"},
+    {"id": "3", "name": "Hàng dễ vỡ"},
+    {"id": "4", "name": "Tài liệu"},
+    {"id": "5", "name": "Hàng hóa khác"}
+  ]
+}
+```
+
+---
+
+### 5.7 API Thiết bị (Devices)
+
+#### 5.7.1 📱 Đăng ký thiết bị
+
+**Endpoint:** `POST /devices`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/devices` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ❌ Không |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `device_type` | String | ✅ | Loại: `android` hoặc `ios` | `android` |
+| `device_id` | String | ✅ | UUID thiết bị | `550e8400-e29b-...` |
+| `device_name` | String | ✅ | Tên thiết bị | `Samsung Galaxy S24` |
+| `os_version` | String | ✅ | Phiên bản OS | `14` |
+| `app_version` | String | ✅ | Phiên bản app | `1.0.40` |
+| `device_token` | String | ✅ | FCM token | `dXXX:APA91bHY...` |
+
+**Response thành công:**
+
+```json
+{
+  "data": {
+    "id": 789,
+    "device_id": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+---
+
+### 5.8 API Upload File
+
+#### 5.8.1 📤 Upload Base64
+
+**Endpoint:** `POST /upload-base64`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/upload-base64` |
+| Content-Type | `application/x-www-form-urlencoded` |
+| Auth Required | ✅ Có |
+
+**Request Parameters:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả |
+|---------|------|----------|-------|
+| `data` | String | ✅ | Dữ liệu file Base64 (không prefix) |
+| `format` | String | ✅ | Định dạng: `jpeg`, `png`, `pdf` |
+
+**Response thành công:**
+
+```json
+{
+  "data": {
+    "url": "/uploads/files/file_1702000000.jpeg"
+  }
+}
+```
+
+---
+
+## 6. CẤU TRÚC DỮ LIỆU (DATA MODELS)
+
+### 6.1 User Model
+
+```mermaid
+classDiagram
+    class User {
+        +int id
+        +String name
+        +String phone_number
+        +String email
+        +String token_user
+        +String image
+        +String address
+        +String birthday
+        +String current_device_id
+    }
+```
+
+| Trường | Kiểu | Nullable | Mô tả |
+|--------|------|----------|-------|
+| `id` | Integer | ❌ | ID người dùng |
+| `name` | String | ✅ | Họ tên đầy đủ |
+| `phone_number` | String | ❌ | Số điện thoại đăng ký |
+| `email` | String | ✅ | Email |
+| `token_user` | String | ❌ | Token xác thực |
+| `image` | String | ✅ | Đường dẫn ảnh đại diện |
+| `address` | String | ✅ | Địa chỉ |
+| `birthday` | String | ✅ | Ngày sinh (YYYY-MM-DD) |
+| `current_device_id` | String | ✅ | ID thiết bị đăng nhập |
+
+---
+
+### 6.2 Booking Model
+
+| Trường | Kiểu | Nullable | Mô tả |
+|--------|------|----------|-------|
+| `id` | Integer | ❌ | ID đơn hàng |
+| `booking_code` | String | ❌ | Mã đơn hàng hệ thống |
+| `booking_code2` | String | ✅ | Mã tham chiếu phụ |
+| `status` | String | ❌ | Trạng thái đơn hàng |
+| `person_in_charge` | String | ✅ | Người phụ trách |
+| `contact_number` | String | ✅ | SĐT liên hệ |
+| `company_name` | String | ✅ | Tên công ty |
+| `customer_email` | String | ✅ | Email khách hàng |
+| `charges` | String | ✅ | Phí vận chuyển (VND) |
+| `distance` | String | ✅ | Khoảng cách (km) |
+| `weight` | String | ✅ | Khối lượng (kg) |
+| `volume` | String | ✅ | Thể tích (m³) |
+| `quantity` | String | ✅ | Số lượng kiện |
+| `description` | String | ✅ | Ghi chú mô tả |
+| `reference_no` | String | ✅ | Mã tham chiếu |
+| `postal_code` | String | ✅ | Mã bưu điện |
+| `site` | String | ✅ | Site/Chi nhánh |
+| `unit_nos` | String | ✅ | Số đơn vị |
+| `salary` | String | ✅ | Tiền công tài xế |
+| `catalogue_id` | String | ✅ | ID loại hàng hóa |
+| `catalogue_name` | String | ✅ | Tên loại hàng hóa |
+| `reason_reject` | String | ✅ | Lý do từ chối |
+| `current_latitude` | Double | ✅ | Vĩ độ hiện tại (GPS) |
+| `current_longitude` | Double | ✅ | Kinh độ hiện tại (GPS) |
+| `location_from` | TrackLocation | ❌ | Điểm lấy hàng |
+| `location_to` | TrackLocation | ❌ | Điểm giao hàng |
+| `locations_attributes` | Array | ✅ | Các điểm dừng giữa |
+| `schedule_time` | String | ✅ | Ngày giao (YYYY-MM-DD) |
+| `etd_time` | String | ✅ | Thời gian xuất phát |
+| `eta_time` | String | ✅ | Thời gian đến |
+| `updated_at` | String | ❌ | Thời gian cập nhật |
+
+---
+
+### 6.3 TrackLocation Model
+
+| Trường | Kiểu | Nullable | Mô tả |
+|--------|------|----------|-------|
+| `id` | Integer | ❌ | ID điểm |
+| `name` | String | ❌ | Tên/địa chỉ |
+| `latitude` | Double | ❌ | Vĩ độ |
+| `longitude` | Double | ❌ | Kinh độ |
+| `distance` | Double | ✅ | Khoảng cách từ điểm trước |
+| `position` | Integer | ❌ | Thứ tự (1, 2, 3...) |
+| `booking_id` | Integer | ✅ | ID đơn hàng liên quan |
+| `created_at` | String | ✅ | Thời gian tạo |
+| `updated_at` | String | ✅ | Thời gian cập nhật |
+
+---
+
+### 6.4 Notification Model
+
+| Trường | Kiểu | Nullable | Mô tả |
+|--------|------|----------|-------|
+| `id` | String | ❌ | ID thông báo |
+| `target_id` | String | ✅ | ID đơn hàng liên quan |
+| `title` | String | ❌ | Tiêu đề |
+| `content` | String | ❌ | Nội dung |
+| `booking_code` | String | ✅ | Mã đơn hàng |
+| `view_type` | String | ✅ | Loại: `booking`, `viewed` |
+| `action_type` | String | ✅ | Loại action: `status_change_*` |
+| `reason_reject` | String | ✅ | Lý do từ chối |
+| `created_at` | String | ❌ | Thời gian tạo |
+
+---
+
+### 6.5 Catalogue Model
+
+| Trường | Kiểu | Nullable | Mô tả |
+|--------|------|----------|-------|
+| `id` | String | ❌ | ID danh mục |
+| `name` | String | ❌ | Tên danh mục |
+
+---
+
+## 7. BẢNG TRẠNG THÁI ĐƠN HÀNG
+
+### 7.1 Chi tiết các trạng thái
+
+| Status Code | Tiếng Việt | English | Mô tả |
+|-------------|------------|---------|-------|
+| `pending` | ⏳ Chờ xử lý | Pending | Đơn mới tạo, chờ xác nhận |
+| `confirm` | ✅ Đã xác nhận | Confirmed | Đơn đã được xác nhận |
+| `waiting_get_item` | 📦 Chờ lấy hàng | Waiting to pick up | Chờ tài xế đến lấy |
+| `getting_item` | 🚚 Đang lấy hàng | Getting item | Tài xế đang lấy hàng |
+| `got_item` | ✅ Lấy hàng xong | Got item | Đã lấy hàng thành công |
+| `waiting_delivery` | 📋 Chuẩn bị giao | Waiting delivery | Chuẩn bị giao hàng |
+| `delivering` | 🛵 Đang giao hàng | Delivering | Tài xế đang giao |
+| `delivered` | 📬 Đã giao hàng | Delivered | Giao hàng thành công |
+| `completed` | ✔️ Hoàn tất | Completed | Đơn hàng hoàn tất |
+| `canceled` | ❌ Đã hủy | Canceled | Đơn bị hủy |
+| `rejected` | 🚫 Bị từ chối | Rejected | Đơn bị từ chối |
+| `not_yet_delivery` | ⚠️ Chưa giao được | Not yet delivered | Giao không thành công |
+| `rejected_item` | 🔙 Từ chối nhận | Rejected item | Người nhận từ chối |
+
+### 7.2 Ma trận chuyển đổi trạng thái
+
+| Từ trạng thái | → Có thể chuyển sang |
+|---------------|---------------------|
+| `pending` | `confirm`, `rejected`, `canceled` |
+| `confirm` | `waiting_get_item` |
+| `waiting_get_item` | `getting_item` |
+| `getting_item` | `got_item` |
+| `got_item` | `waiting_delivery` |
+| `waiting_delivery` | `delivering` |
+| `delivering` | `delivered`, `not_yet_delivery`, `rejected_item` |
+| `not_yet_delivery` | `delivering` |
+| `delivered` | `completed` |
+
+---
+
+## 8. XỬ LÝ LỖI VÀ MÃ PHẢN HỒI
+
+### 8.1 HTTP Status Codes
+
+| HTTP Code | Mô tả | Hành động |
+|-----------|-------|-----------|
+| `200` | ✅ Thành công | Xử lý response data |
+| `201` | ✅ Tạo mới thành công | Xử lý resource mới |
+| `400` | ❌ Dữ liệu không hợp lệ | Kiểm tra request body |
+| `401` | 🔒 Token không hợp lệ/hết hạn | Xóa token → Đăng nhập lại |
+| `403` | 🚫 Không có quyền | Kiểm tra quyền user |
+| `404` | ❓ Không tìm thấy | Kiểm tra ID/endpoint |
+| `422` | ⚠️ Không thể xử lý | Kiểm tra business logic |
+| `500` | 💥 Lỗi server | Thử lại sau |
+
+### 8.2 Cấu trúc Response Error
+
 ```json
 {
   "error": "Error type",
@@ -72,133 +949,198 @@
 }
 ```
 
-### 5.2 Auth & Account
-- **POST** `/clients/login` *(form)* → nhận `data.token_user`; Body: `loginkey`, `password`, `device_id`.
-- **POST** `/clients/logout` *(auth)* → vô hiệu hoá token hiện tại.
-- **POST** `/clients/update-current-password` *(form, auth)* → `current_password`, `new_password`, `new_confirm_password`.
-- **POST** `/clients/update-user` *(form, auth)* → một số trường thường gặp: `name`, `address`, `birthday(YYYY-MM-DD)`, `email`.
-- **POST** `/clients/update-avarta` *(form, auth)* → `img` (base64 **data-only**), `img_format` (`jpeg|jpg|png`).
+**Hoặc:**
 
-### 5.3 Bookings (CRUD)
-- **GET** `/clients/bookings` *(auth)*: lọc `status[]=...` (đa giá trị).
-- **GET** `/clients/bookings/{id}` *(auth)*: chi tiết đơn.
-- **POST** `/clients/bookings` *(JSON, auth)*: tối thiểu `address_from`, `address_to`, `schedule_time (YYYY-MM-DD)`, `contact_number`, `locations_attributes[]`. Khuyến nghị `reference_no` (idempotency). 
-  - `locations_attributes[]`: `{ name, latitude, longitude, position(1=đi,2=đến,>=3=dừng), [distance], [id], [_destroy] }`
-- **PUT** `/clients/bookings/{id}` *(JSON, auth)*: chỉ gửi trường cần cập nhật; xoá điểm dừng bằng `{ "id": <id>, "_destroy": true }`.
-- **DELETE** `/clients/bookings/{id}` *(auth)*.
-
-### 5.4 Notifications
-- **GET** `/clients/notifications?page=1&limit=20` *(auth)* – phân trang.
-- **GET** `/clients/notifications/{id}` *(auth)* – chi tiết.
-- **DELETE** `/clients/notifications/{id}` *(auth)* – xoá.
-
-### 5.5 Catalogues
-- **GET** `/clients/catalogues` *(auth)* – khuyến nghị **cache** cục bộ.
-
-### 5.6 Devices
-- **POST** `/devices` *(form, no auth)* → `device_type`, `device_id`, `device_name`, `[os_version]`, `[app_version]`, `[device_token]`.
-- **PUT** `/devices/{id}` *(form, auth)* → `company_id`.
-
-### 5.7 Upload base64
-- **POST** `/upload-base64` *(form, auth)* → `data` (base64 **data-only**), `format` (`jpeg|png|pdf`...).
+```json
+{
+  "success": "false",
+  "data": "Thông báo lỗi"
+}
+```
 
 ---
 
-## 6) Mô hình dữ liệu (Data Models)
+## 9. VÍ DỤ MÃ NGUỒN TÍCH HỢP
 
-### 6.1 User
-`{ id, name, phone_number, email, token_user, image, address, birthday, current_device_id }`
+### 9.1 cURL
 
-### 6.2 Booking
-Các trường nổi bật: `id, booking_code, status, contact_number, company_name, customer_email, charges, distance, weight, volume, quantity, description, reference_no, catalogue_id, schedule_time, etd_time, eta_time, location_from, location_to, locations_attributes[], updated_at ...`
-
-- **location_from/location_to**: `{ id, name, latitude, longitude, position, distance }`
-- **locations_attributes[]** khi cập nhật: cho phép `{ id, _destroy: true }` để xoá điểm.
-
-### 6.3 Notification
-`{ id, target_id, title, content, booking_code, view_type, action_type, reason_reject, created_at }`
-
-### 6.4 Catalogue
-`{ id, name }`
-
----
-
-## 7) Khuyến nghị triển khai (Best Practices)
-- **Bảo mật token**: lưu ở secure store (Keychain/EncryptedSharedPreferences); mask trong log; xoá token khi 401.
-- **Idempotency**: dùng `reference_no` duy nhất khi tạo đơn; chặn trùng phía đối tác.
-- **Chuẩn hóa số liệu**: parse `distance`, `weight`, `volume`, `quantity` về kiểu số.
-- **Địa lý**: luôn kèm `latitude/longitude` hợp lệ; `position` tăng dần theo lộ trình.
-- **Cache** `catalogues`; giảm số lần gọi lặp.
-- **Upload**: chỉ truyền **BASE64 data-only**; kiểm soát `format`; giới hạn kích thước (khuyến nghị ≤ 5MB/ảnh).
-
----
-
-## 8) Quy trình tích hợp (Step‑by‑step)
-1. **Login** bằng `/clients/login` → lưu `token_user` an toàn.
-2. **Tải Catalogues** → cache để dựng UI.
-3. **Tạo Booking** (JSON tối thiểu) → nhận `id`, `booking_code`.
-4. **Theo dõi/Tra cứu** danh sách & chi tiết bằng `status[]` và `{id}`.
-5. **Cập nhật/Huỷ** booking theo nghiệp vụ.
-6. **Đồng bộ Notifications** (phân trang); hiển thị liên kết đến đơn liên quan.
-7. **Quản trị Account** (đổi mật khẩu, hồ sơ, avatar) & **Devices**.
-8. **Upload base64** tài liệu/POD và liên kết vào nghiệp vụ nội bộ.
-
----
-
-## 9) Kiểm thử & nghiệm thu
-**Test case tối thiểu**
-- Auth: sai mật khẩu, đúng; logout; 401 → re-login.
-- Booking: tạo tối thiểu/đủ; cập nhật một điểm; xoá điểm (`_destroy`); huỷ đơn.
-- Lọc `status[]` nhiều giá trị.
-- Notifications: phân trang, đọc, xoá.
-- Catalogues: tải + cache; hiển thị mapping đúng.
-- Upload base64: gửi ảnh/pdf hợp lệ; chặn sai định dạng.
-
-**Tiêu chí pass**: 2xx ở đường đi hạnh phúc; mapping trạng thái đúng; log sạch; không rò rỉ PII/token.
-
----
-
-## 10) Ví dụ nhanh
-**cURL – Login**
+**Đăng nhập:**
 ```bash
 curl -X POST "https://tms.track-asia.com/api/v1/clients/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "loginkey=user@example.com&password=yourpassword&device_id=device-uuid"
+  -d "loginkey=user@example.com&password=yourpassword&device_id=unique-device-id"
 ```
 
-**JS – Lấy bookings theo trạng thái**
+**Lấy danh sách đơn hàng:**
+```bash
+curl -X GET "https://tms.track-asia.com/api/v1/clients/bookings?status[]=pending" \
+  -H "Authorization: your_token_here"
+```
+
+**Tạo đơn hàng:**
+```bash
+curl -X POST "https://tms.track-asia.com/api/v1/clients/bookings" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: your_token_here" \
+  -d '{
+    "address_from": "123 Nguyễn Huệ, Q1",
+    "address_to": "456 Lê Lợi, Q3",
+    "schedule_time": "2025-12-10",
+    "contact_number": "0912345678",
+    "reference_no": "REF-001",
+    "catalogue_id": "1",
+    "company_name": "Công ty ABC",
+    "etd_time": "2025-12-10 08:00",
+    "eta_time": "2025-12-10 17:00",
+    "weight": "10",
+    "volume": "1",
+    "locations_attributes": [
+      {"name": "123 Nguyễn Huệ", "latitude": 10.7769, "longitude": 106.7009, "position": 1, "distance": 0},
+      {"name": "456 Lê Lợi", "latitude": 10.7756, "longitude": 106.6867, "position": 2, "distance": 5.2}
+    ]
+  }'
+```
+
+---
+
+### 9.2 JavaScript (Fetch API)
+
 ```javascript
-fetch('https://tms.track-asia.com/api/v1/clients/bookings?status[]=pending&status[]=delivering', {
-  headers: { Authorization: token }
-}).then(r => r.json()).then(console.log);
+const BASE_URL = 'https://tms.track-asia.com/api/v1';
+
+class TrackAsiaClient {
+  constructor() {
+    this.token = null;
+  }
+
+  async login(email, password, deviceId) {
+    const formData = new URLSearchParams();
+    formData.append('loginkey', email);
+    formData.append('password', password);
+    formData.append('device_id', deviceId);
+
+    const response = await fetch(`${BASE_URL}/clients/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.data?.token_user) {
+      this.token = data.data.token_user;
+      return data.data;
+    }
+    throw new Error(data.error || data.data || 'Login failed');
+  }
+
+  _headers(json = false) {
+    const h = { 'Authorization': this.token };
+    if (json) h['Content-Type'] = 'application/json';
+    return h;
+  }
+
+  async getBookings(statuses = []) {
+    const params = new URLSearchParams();
+    statuses.forEach(s => params.append('status[]', s));
+    const response = await fetch(`${BASE_URL}/clients/bookings?${params}`, {
+      headers: this._headers()
+    });
+    return response.json();
+  }
+
+  async createBooking(data) {
+    const response = await fetch(`${BASE_URL}/clients/bookings`, {
+      method: 'POST',
+      headers: this._headers(true),
+      body: JSON.stringify(data)
+    });
+    return response.json();
+  }
+
+  async getCatalogues() {
+    const response = await fetch(`${BASE_URL}/clients/catalogues`, {
+      headers: this._headers()
+    });
+    return response.json();
+  }
+}
+
+// Sử dụng
+const client = new TrackAsiaClient();
+await client.login('user@example.com', 'password', 'device-123');
+const bookings = await client.getBookings(['pending']);
+console.log(bookings);
 ```
 
-**Python – Tạo booking tối thiểu**
+---
+
+### 9.3 Python
+
 ```python
 import requests
-BASE='https://tms.track-asia.com/api/v1'
-headers={'Authorization': token, 'Content-Type': 'application/json'}
-body={
-  "address_from":"123 Nguyễn Huệ, Q1",
-  "address_to":"456 Lê Lợi, Q3",
-  "schedule_time":"2025-12-10",
-  "contact_number":"0912345678",
-  "locations_attributes":[
-    {"name":"123 Nguyễn Huệ","latitude":10.7769,"longitude":106.7009,"position":1},
-    {"name":"456 Lê Lợi","latitude":10.7756,"longitude":106.6867,"position":2}
-  ]
-}
-print(requests.post(f"{BASE}/clients/bookings", headers=headers, json=body).json())
+
+BASE_URL = "https://tms.track-asia.com/api/v1"
+
+class TrackAsiaClient:
+    def __init__(self):
+        self.token = None
+
+    def login(self, email, password, device_id):
+        response = requests.post(
+            f"{BASE_URL}/clients/login",
+            data={"loginkey": email, "password": password, "device_id": device_id}
+        )
+        data = response.json()
+        if "data" in data and "token_user" in data["data"]:
+            self.token = data["data"]["token_user"]
+            return data["data"]
+        raise Exception(data.get("error", "Login failed"))
+
+    def _headers(self, json=False):
+        h = {"Authorization": self.token}
+        if json:
+            h["Content-Type"] = "application/json"
+        return h
+
+    def get_bookings(self, statuses=None):
+        params = {"status[]": statuses} if statuses else {}
+        response = requests.get(f"{BASE_URL}/clients/bookings", 
+                               headers=self._headers(), params=params)
+        return response.json()
+
+    def create_booking(self, booking_data):
+        response = requests.post(f"{BASE_URL}/clients/bookings",
+                                headers=self._headers(json=True), json=booking_data)
+        return response.json()
+
+    def get_catalogues(self):
+        response = requests.get(f"{BASE_URL}/clients/catalogues", 
+                               headers=self._headers())
+        return response.json()
+
+# Sử dụng
+client = TrackAsiaClient()
+user = client.login("user@example.com", "password", "device-123")
+print(f"Logged in as: {user['name']}")
+
+bookings = client.get_bookings(["pending"])
+print(f"Found {len(bookings.get('data', []))} bookings")
 ```
 
 ---
 
-## 11) Phụ lục – Mẫu payload nhanh
-- **/clients/update-avarta (form)**: `img=<BASE64_ONLY>&img_format=jpeg|png|jpg`
-- **/upload-base64 (form)**: `data=<BASE64_ONLY>&format=jpeg|png|pdf`
-- **locations_attributes** khi xoá điểm: `[{"id": 33, "_destroy": true}]`
+## 10. THÔNG TIN HỖ TRỢ
+
+| Kênh | Thông tin |
+|------|-----------|
+| 🌐 Website | https://track-asia.com |
+| 📧 Email | support@track-asia.com |
+| 📱 TMS Portal | https://tms.track-asia.com |
+
+| Môi trường | Base URL |
+|------------|----------|
+| **Production** | `https://tms.track-asia.com/api/v1` |
+| **Alternative** | `https://trackasia.vn/api/v1` |
 
 ---
-
-*Phiên bản 2.0 – tái cấu trúc theo chuẩn API reference, chèn hình minh hoạ chính xác; giữ nguyên nội dung kỹ thuật cốt lõi.*
 
