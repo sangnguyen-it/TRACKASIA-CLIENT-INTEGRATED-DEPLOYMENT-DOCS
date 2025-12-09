@@ -192,7 +192,9 @@ Authorization: {token_user}
 
 ```json
 {
-  "message": "Logout successful"
+	"success": true,
+	"msg": "logout",
+	"data": "Logout successfully"
 }
 ```
 
@@ -231,7 +233,9 @@ current_password=OldP@ss123&new_password=NewP@ss456&new_confirm_password=NewP@ss
 
 ```json
 {
-  "message": "Password updated successfully"
+	"success": true,
+	"msg": "update_current_password",
+	"data": "Change password successfully"
 }
 ```
 
