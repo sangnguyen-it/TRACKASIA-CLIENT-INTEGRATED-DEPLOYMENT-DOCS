@@ -94,7 +94,7 @@
 
 | Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
 |---------|------|----------|-------|-------|
-| `loginkey` | String | ✅ | Email hoặc số điện thoại đăng ký | `user@example.com` hoặc `0901234567` |
+| `loginkey` | String | ✅ | Email hoặc số điện thoại đăng ký | `user@example.com` hoặc `0906512161` |
 | `password` | String | ✅ | Mật khẩu tài khoản | `MyP@ssw0rd123` |
 | `device_id` | String | ✅ | UUID duy nhất của thiết bị | `550e8400-e29b-41d4-a716-446655440000` |
 
@@ -112,17 +112,49 @@ loginkey=user@example.com&password=MyP@ssw0rd123&device_id=550e8400-e29b-41d4-a7
 
 ```json
 {
-  "data": {
-    "id": 12345,
-    "name": "Nguyễn Văn A",
-    "phone_number": "0901234567",
-    "email": "user@example.com",
-    "token_user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NSwiZXhwIjoxNzM0MDAwMDAwfQ.xxxxx",
-    "image": "/uploads/avatars/user12345.jpg",
-    "address": "123 Nguyễn Huệ, Quận 1, TP.HCM",
-    "birthday": "1990-05-15",
-    "current_device_id": "550e8400-e29b-41d4-a716-446655440000"
-  }
+	"success": true,
+	"msg": "login",
+	"data": {
+		"token_user": "81765180784d5065ff1302b60925f580d17",
+		"email": "an@gamil.com",
+		"id": 134,
+		"password_digest": "$2a$12$EAdPEWCtwPpGZ//AJRQPkOHTBHqlVq5J4hJtf.KCVcPUG0yKFUM8K",
+		"name": "Ân Phạm",
+		"address": "PLA",
+		"company_name": null,
+		"open_id": null,
+		"open_token": null,
+		"verify_code": "375012",
+		"image": null,
+		"status": 1,
+		"slug": null,
+		"created_at": "2025-12-08T14:59:18.686+07:00",
+		"updated_at": "2025-12-08T14:59:44.376+07:00",
+		"phone_number": "0906512161",
+		"birthday": null,
+		"points": null,
+		"membership": null,
+		"accountkit_id": null,
+		"verified": 0,
+		"qr_code": null,
+		"bar_code": null,
+		"role_chat": "client",
+		"uid_code": null,
+		"company_id": 239,
+		"is_employment": 0,
+		"current_device_type": null,
+		"current_device_name": null,
+		"current_os_version": null,
+		"current_app_version": null,
+		"current_device_id": null,
+		"current_device_token": null,
+		"active_code": null,
+		"deleted": 0,
+		"contact": null,
+		"staff_id": 239,
+		"deleted_at": null,
+		"note": ""
+	}
 }
 ```
 
