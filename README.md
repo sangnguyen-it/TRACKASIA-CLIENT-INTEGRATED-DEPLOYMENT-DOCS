@@ -267,15 +267,49 @@ current_password=OldP@ss123&new_password=NewP@ss456&new_confirm_password=NewP@ss
 
 ```json
 {
-  "data": {
-    "id": 12345,
-    "name": "Nguyễn Văn B",
-    "phone_number": "0901234567",
-    "email": "newmail@example.com",
-    "address": "456 Lê Lợi, Q1, TP.HCM",
-    "birthday": "1990-06-20",
-    "image": "/uploads/avatars/user12345.jpg"
-  }
+	"success": true,
+	"msg": "updateuser",
+	"data": {
+		"name": "AN PHAM",
+		"address": "PLA",
+		"birthday": "1994-02-11T00:00:00.000+07:00",
+		"email": "snine1991@gmail.com",
+		"id": 134,
+		"password_digest": "$2a$12$dwClabs/Glt9dgnDbI9S7uXFvRnAx5zUYRsPUokpAuSVz8udvMDUC",
+		"company_name": null,
+		"open_id": null,
+		"open_token": null,
+		"verify_code": "375012",
+		"token_user": "e997a0c176533409901d6b9cc5834588f7",
+		"image": null,
+		"status": 1,
+		"slug": null,
+		"created_at": "2025-12-08T14:59:18.686+07:00",
+		"updated_at": "2025-12-10T09:35:36.928+07:00",
+		"phone_number": "0906512162",
+		"points": null,
+		"membership": null,
+		"accountkit_id": null,
+		"verified": 0,
+		"qr_code": null,
+		"bar_code": null,
+		"role_chat": "client",
+		"uid_code": null,
+		"company_id": 239,
+		"is_employment": 0,
+		"current_device_type": null,
+		"current_device_name": null,
+		"current_os_version": null,
+		"current_app_version": null,
+		"current_device_id": null,
+		"current_device_token": null,
+		"active_code": null,
+		"deleted": 0,
+		"contact": null,
+		"staff_id": 239,
+		"deleted_at": null,
+		"note": ""
+	}
 }
 ```
 
