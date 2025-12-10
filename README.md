@@ -105,7 +105,7 @@ POST /api/v1/clients/login HTTP/1.1
 Host: tms.track-asia.com
 Content-Type: application/x-www-form-urlencoded
 
-loginkey=user@example.com&password=MyP@ssw0rd123&device_id=550e8400-e29b-41d4-a716-446655440000
+loginkey=an@gamil.com&password=MyP@ssw0rd123&device_id=550e8400-e29b-41d4-a716-446655440000
 ```
 
 **Response thành công (HTTP 200):**
