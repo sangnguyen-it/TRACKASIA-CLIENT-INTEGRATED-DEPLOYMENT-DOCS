@@ -387,60 +387,96 @@ Authorization: {token_user}
 
 ```json
 {
-  "data": [
-    {
-      "id": 98765,
-      "booking_code": "BK20251210001",
-      "status": "pending",
-      "person_in_charge": "Nguyễn Văn B",
-      "contact_number": "0912345678",
-      "company_name": "Công ty ABC",
-      "customer_email": "customer@company.com",
-      "charges": "500000",
-      "distance": "5.2",
-      "weight": "25.5",
-      "volume": "0.5",
-      "quantity": "3",
-      "description": "Hàng dễ vỡ, cần cẩn thận",
-      "reference_no": "REF123",
-      "postal_code": "700000",
-      "site": "Site A",
-      "unit_nos": "Unit 1",
-      "salary": "50000",
-      "catalogue_id": "1",
-      "catalogue_name": "Hàng điện tử",
-      "reason_reject": null,
-      "current_latitude": 10.7760,
-      "current_longitude": 106.6950,
-      "location_from": {
-        "id": 1,
-        "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
-        "latitude": 10.7769,
-        "longitude": 106.7009,
-        "distance": 0,
-        "position": 0,
-        "booking_id": 98765,
-        "created_at": "2025-12-08T10:30:00Z",
-        "updated_at": "2025-12-08T10:30:00Z"
-      },
-      "location_to": {
-        "id": 2,
-        "name": "456 Lê Lợi, Quận 3, TP.HCM",
-        "latitude": 10.7756,
-        "longitude": 106.6867,
-        "distance": 5.2,
-        "position": 1,
-        "booking_id": 98765,
-        "created_at": "2025-12-08T10:30:00Z",
-        "updated_at": "2025-12-08T10:30:00Z"
-      },
-      "locations_attributes": [],
-      "schedule_time": "2025-12-10",
-      "etd_time": "2025-12-10 08:00",
-      "eta_time": "2025-12-10 17:00",
-      "updated_at": "2025-12-08T10:30:00Z"
-    }
-  ]
+	"success": true,
+	"msg": "list_booking",
+	"data": [
+		{
+			"id": 12235,
+			"employee_id": null,
+			"user_name": "Ân Phạm",
+			"user_phone": "0906512162",
+			"user_email": "an@gamil.com",
+			"user_address": "PLA",
+			"address_to": "Rảnh thì bán, 474 Đường Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+			"postal_code": null,
+			"unit_nos": null,
+			"company_name": null,
+			"contact_number": null,
+			"customer_email": null,
+			"charges": null,
+			"description": null,
+			"site": null,
+			"updated_at": "2025-12-09T15:53:55.755+07:00",
+			"created_at": "2025-12-09T15:53:55.755+07:00",
+			"schedule_time": "2025-12-09T15:25:12.000+07:00",
+			"reference_no": "12345",
+			"company_id": 239,
+			"booking_code": "A25216854761",
+			"address_from": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+			"status": "pending",
+			"distance": 0.0,
+			"client_id": 134,
+			"quantity": 1,
+			"weight": 1.0,
+			"manual": null,
+			"images": null,
+			"shipping_done": null,
+			"toll_gate": null,
+			"etd_time": "2025-12-09T15:25:12.000+07:00",
+			"eta_time": null,
+			"catalogue_id": null,
+			"group_id": null,
+			"volume": 1.0,
+			"area": null,
+			"regions": "[\"Miền Nam\", \"Đông Nam Bộ\"]",
+			"provinces": "[\"Thành phố Hồ Chí Minh\"]",
+			"direction": "SE",
+			"staff_id": 239,
+			"districts": "[\"Quận 5\"]",
+			"reason_reject": null,
+			"deleted_at": null,
+			"admin_description": null,
+			"booking_status": "b_draft",
+			"shipping_status": null,
+			"payment_status": "paid",
+			"address_to_lat": "10.755877",
+			"address_to_long": "106.682429",
+			"address_from_lat": "10.755877",
+			"address_from_long": "106.682429",
+			"time_moving": 1.0,
+			"vehicle_type": null,
+			"vehicle_weight": null,
+			"payment_type": null,
+			"location_from": {
+				"id": 15670,
+				"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+				"latitude": 10.755877,
+				"longitude": 106.682429,
+				"distance": 123.0,
+				"booking_id": 12235,
+				"created_at": "2025-12-09T15:53:55.884+07:00",
+				"updated_at": "2025-12-09T15:53:55.884+07:00",
+				"position": 1,
+				"deleted_at": null
+			},
+			"location_to": {
+				"id": 15671,
+				"name": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+				"latitude": 10.755877,
+				"longitude": 106.682429,
+				"distance": 123.0,
+				"booking_id": 12235,
+				"created_at": "2025-12-09T15:53:56.391+07:00",
+				"updated_at": "2025-12-09T15:53:56.391+07:00",
+				"position": 2,
+				"deleted_at": null
+			},
+			"current_latitude": 10.755877,
+			"current_longitude": 106.682429,
+			"catalogue_name": null,
+			"client_name": "AN PHAM"
+		}
+	]
 }
 ```
 
@@ -470,105 +506,11 @@ Authorization: {token_user}
 ```
 
 **Response:** Tương tự response của API lấy danh sách nhưng chỉ trả về 1 object (không phải array).
-
----
-
-#### 5.4.3 ➕ Tạo đơn hàng mới
-
-**Endpoint:** `POST /clients/bookings`
-
-| Thuộc tính | Giá trị |
-|------------|---------|
-| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings` |
-| Content-Type | `application/json` |
-| Auth Required | ✅ Có |
-
-**Request Body - Các trường chính:**
-
-| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
-|---------|------|----------|-------|-------|
-| `address_from` | String | ✅ | Địa chỉ điểm lấy hàng | `123 Nguyễn Huệ, Q1, TP.HCM` |
-| `address_to` | String | ✅ | Địa chỉ điểm giao hàng | `456 Lê Lợi, Q3, TP.HCM` |
-| `reference_no` | String | ✅ | Mã tham chiếu/Mã đơn của bạn | `REF-001` |
-| `etd_time` | String | ✅ | Thời gian xuất phát dự kiến | `2025-12-10 08:00` |
-| `eta_time` | String | ✅ | Thời gian đến dự kiến | `2025-12-10 17:00` |
-| `company_name` | String | ✅ | Tên công ty | `Công ty ABC` |
-| `weight` | String | ✅ | Khối lượng (kg) | `25.5` |
-| `volume` | String | ✅ | Thể tích (m³) | `0.5` |
-| `locations_attributes` | Array | ✅ | Danh sách điểm dừng (tối thiểu 2) | *Xem bên dưới* |
-
-**Request Body - Các trường tùy chọn:**
-
-| Tham số | Kiểu | Mô tả | Ví dụ |
-|---------|------|-------|-------|
-| `customer_email` | String | Email khách hàng | `customer@company.com` |
-| `charges` | String | Phí vận chuyển (VND) | `500000` |
-| `description` | String | Ghi chú, mô tả hàng hóa | `Hàng dễ vỡ, cần cẩn thận` |
-| `distance` | String | Khoảng cách (km) | `5.2` |
-| `quantity` | String | Số lượng kiện hàng | `3` |
-| `schedule_time` | String | Ngày giao hàng (YYYY-MM-DD) | `2025-12-10` |
-| `contact_number` | String | Số điện thoại liên hệ | `0912345678` |
-| `catalogue_id` | String | ID loại hàng hóa (từ API catalogues) | `1` or null: Lấy tất cả|
-
-**Cấu trúc `locations_attributes`:**
-
-| Tham số | Kiểu | Bắt buộc | Mô tả |
-|---------|------|----------|-------|
-| `name` | String | ✅ | Tên/địa chỉ điểm dừng |
-| `latitude` | Double | ✅ | Vĩ độ (VD: 10.7769) |
-| `longitude` | Double | ✅ | Kinh độ (VD: 106.7009) |
-| `position` | Integer | ✅ | Thứ tự: 1=điểm đi, 2=điểm đến |
-| `distance` | Double | ❌ | Khoảng cách từ điểm trước (km) |
-| `id` | Integer | ❌ | ID điểm (để trống khi tạo mới) |
-| `_destroy` | Boolean | ❌ | `true` để xóa điểm (dùng khi cập nhật) |
-
-**Request mẫu đầy đủ:**
-
 ```json
 {
-  "address_from": "123 Nguyễn Huệ, Quận 1, TP.HCM",
-  "address_to": "456 Lê Lợi, Quận 3, TP.HCM",
-  "company_name": "Công ty ABC",
-  "schedule_time": "2025-12-10",
-  "contact_number": "0912345678",
-  "customer_email": "customer@company.com",
-  "charges": "500000",
-  "description": "Hàng dễ vỡ, cần cẩn thận khi vận chuyển",
-  "distance": "5.2",
-  "reference_no": "REF-001",
-  "catalogue_id": "1",
-  "etd_time": "2025-12-10 08:00",
-  "eta_time": "2025-12-10 17:00",
-  "quantity": "3",
-  "weight": "25.5",
-  "volume": "0.5",
-  "latitude_from": "10.7769",
-  "longitude_from": "106.7009",
-  "latitude_to": "10.7756",
-  "longitude_to": "106.6867",
-  "locations_attributes": [
-    {
-      "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
-      "latitude": 10.7769,
-      "longitude": 106.7009,
-      "distance": 0,
-      "position": 1
-    },
-    {
-      "name": "456 Lê Lợi, Quận 3, TP.HCM",
-      "latitude": 10.7756,
-      "longitude": 106.6867,
-      "distance": 5.2,
-      "position": 2
-    }
-  ]
-}
-```
-
-**Response thành công (HTTP 201):**
-
-```json
-"data": {
+	"success": true,
+	"msg": "get_booking",
+	"data": {
 		"id": 12235,
 		"employee_id": null,
 		"user_name": "Ân Phạm",
@@ -652,10 +594,187 @@ Authorization: {token_user}
 		"current_latitude": 10.755877,
 		"current_longitude": 106.682429,
 		"catalogue_name": null,
-		"client_name": "Ân Phạm"
+		"client_name": "AN PHAM"
 	}
+}
+```
+---
+
+#### 5.4.3 ➕ Tạo đơn hàng mới
+
+**Endpoint:** `POST /clients/bookings`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/clients/bookings` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |
+
+**Request Body - Các trường chính:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả | Ví dụ |
+|---------|------|----------|-------|-------|
+| `address_from` | String | ✅ | Địa chỉ điểm lấy hàng | `123 Nguyễn Huệ, Q1, TP.HCM` |
+| `address_to` | String | ✅ | Địa chỉ điểm giao hàng | `456 Lê Lợi, Q3, TP.HCM` |
+| `reference_no` | String | ✅ | Mã tham chiếu/Mã đơn của bạn | `REF-001` |
+| `etd_time` | String | ✅ | Thời gian xuất phát dự kiến | `2025-12-10 08:00` |
+| `eta_time` | String | ✅ | Thời gian đến dự kiến | `2025-12-10 17:00` |
+| `company_name` | String | ✅ | Tên công ty | `Công ty ABC` |
+| `weight` | String | ✅ | Khối lượng (kg) | `25.5` |
+| `volume` | String | ✅ | Thể tích (m³) | `0.5` |
+| `locations_attributes` | Array | ✅ | Danh sách điểm dừng (tối thiểu 2) | *Xem bên dưới* |
+
+**Request Body - Các trường tùy chọn:**
+
+| Tham số | Kiểu | Mô tả | Ví dụ |
+|---------|------|-------|-------|
+| `customer_email` | String | Email khách hàng | `customer@company.com` |
+| `charges` | String | Phí vận chuyển (VND) | `500000` |
+| `description` | String | Ghi chú, mô tả hàng hóa | `Hàng dễ vỡ, cần cẩn thận` |
+| `distance` | String | Khoảng cách (km) | `5.2` |
+| `quantity` | String | Số lượng kiện hàng | `3` |
+| `schedule_time` | String | Ngày giao hàng (YYYY-MM-DD) | `2025-12-10` |
+| `contact_number` | String | Số điện thoại liên hệ | `0912345678` |
+| `catalogue_id` | String | ID loại hàng hóa (từ API catalogues) | `1` or null: Lấy tất cả|
+
+**Cấu trúc `locations_attributes`:**
+
+| Tham số | Kiểu | Bắt buộc | Mô tả |
+|---------|------|----------|-------|
+| `name` | String | ✅ | Tên/địa chỉ điểm dừng |
+| `latitude` | Double | ✅ | Vĩ độ (VD: 10.7769) |
+| `longitude` | Double | ✅ | Kinh độ (VD: 106.7009) |
+| `position` | Integer | ✅ | Thứ tự: 1=điểm đi, 2=điểm đến |
+| `distance` | Double | ❌ | Khoảng cách từ điểm trước (km) |
+| `id` | Integer | ❌ | ID điểm (để trống khi tạo mới) |
+| `_destroy` | Boolean | ❌ | `true` để xóa điểm (dùng khi cập nhật) |
+
+**Request mẫu đầy đủ:**
+
+```json
+{
+  "quantity": "1",
+  "distance": "12",
+  "address_to": "Rảnh thì bán, 474 Đường Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+  "etd_time": "8 tháng 12, 2025 15:25",
+  "weight": "1",
+  "locations_attributes": [
+    {
+      "name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+      "position": "1",
+      "latitude": 10.755877,
+      "longitude": 106.682429,
+      "distance": 123
+    },
+    {  
+      "name": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+      "position": "2",
+      "latitude": 10.755877,
+      "longitude": 106.682429,
+      "distance": 123
+    }
+  ],
+  "address_from":  "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+  "volume": "1",
+  "reference_no": "12345"
+}
+
 ```
 
+**Response thành công (HTTP 201):**
+
+```json
+{
+	"success": true,
+	"msg": "create_booking",
+	"data": {
+		"id": 12237,
+		"employee_id": null,
+		"user_name": "AN PHAM",
+		"user_phone": "0906512162",
+		"user_email": "snine1991@gmail.com",
+		"user_address": "PLA",
+		"address_to": "Rảnh thì bán, 474 Đường Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+		"postal_code": null,
+		"unit_nos": null,
+		"company_name": null,
+		"contact_number": null,
+		"customer_email": null,
+		"charges": null,
+		"description": null,
+		"site": null,
+		"updated_at": "2025-12-10T09:41:23.632+07:00",
+		"created_at": "2025-12-10T09:41:23.632+07:00",
+		"schedule_time": "2025-12-10T15:25:12.000+07:00",
+		"reference_no": "12345",
+		"company_id": 239,
+		"booking_code": "A25225022958",
+		"address_from": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+		"status": "pending",
+		"distance": 2.0,
+		"client_id": 134,
+		"quantity": 1,
+		"weight": 1.0,
+		"manual": null,
+		"images": null,
+		"shipping_done": null,
+		"toll_gate": null,
+		"etd_time": "2025-12-10T15:25:12.000+07:00",
+		"eta_time": null,
+		"catalogue_id": null,
+		"group_id": null,
+		"volume": 1.0,
+		"area": null,
+		"regions": "[\"Miền Nam\", \"Đông Nam Bộ\"]",
+		"provinces": "[\"Thành phố Hồ Chí Minh\"]",
+		"direction": "SE",
+		"staff_id": 239,
+		"districts": "[\"Quận 5\"]",
+		"reason_reject": null,
+		"deleted_at": null,
+		"admin_description": null,
+		"booking_status": "b_draft",
+		"shipping_status": null,
+		"payment_status": "paid",
+		"address_to_lat": "10.755877",
+		"address_to_long": "106.682429",
+		"address_from_lat": "10.755877",
+		"address_from_long": "106.682429",
+		"time_moving": 1.0,
+		"vehicle_type": null,
+		"vehicle_weight": null,
+		"payment_type": null,
+		"location_from": {
+			"id": 15674,
+			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+			"latitude": 10.755877,
+			"longitude": 106.682429,
+			"distance": 123.0,
+			"booking_id": 12237,
+			"created_at": "2025-12-10T09:41:23.836+07:00",
+			"updated_at": "2025-12-10T09:41:23.836+07:00",
+			"position": 1,
+			"deleted_at": null
+		},
+		"location_to": {
+			"id": 15675,
+			"name": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+			"latitude": 10.755877,
+			"longitude": 106.682429,
+			"distance": 123.0,
+			"booking_id": 12237,
+			"created_at": "2025-12-10T09:41:24.330+07:00",
+			"updated_at": "2025-12-10T09:41:24.330+07:00",
+			"position": 2,
+			"deleted_at": null
+		},
+		"current_latitude": 10.755877,
+		"current_longitude": 106.682429,
+		"catalogue_name": null,
+		"client_name": "AN PHAM"
+	}
+}
+```
 ---
 
 #### 5.4.4 ✏️ Cập nhật đơn hàng
@@ -668,34 +787,136 @@ Authorization: {token_user}
 | Content-Type | `application/json` |
 | Auth Required | ✅ Có |
 
-**Lưu ý:** Chỉ gửi các trường cần cập nhật. Để xóa điểm dừng, thêm `"_destroy": true`.
+**Lưu ý:** Chỉ gửi các trường cần cập nhật.
 
 **Request mẫu (cập nhật thông tin + sửa điểm):**
 
 ```json
 {
-  "contact_number": "0912345679",
-  "charges": "550000",
-  "description": "Cập nhật: Thêm ghi chú mới",
+  "quantity": "1",
+  "distance": "2",
+  "address_to": "Rảnh thì bán, 474 Đường Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+  "etd_time": "8 tháng 12, 2025 15:25",
+  "weight": "1",
   "locations_attributes": [
     {
-      "id": 10001,
-      "name": "123 Nguyễn Huệ, Quận 1, TP.HCM",
-      "latitude": 10.7769,
-      "longitude": 106.7009,
-      "position": 1
+     "id": 15674,
+      "name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 477 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+      "position": "1",
+      "latitude": 10.755877,
+      "longitude": 106.682429,
+      "distance": 123
     },
-    {
-      "id": 10002,
-      "name": "789 Hai Bà Trưng, Quận 1, TP.HCM",
-      "latitude": 10.7800,
-      "longitude": 106.7050,
-      "position": 2
+    {  
+      "id": 15675,
+      "name": "277 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+      "position": "2",
+      "latitude": 10.755877,
+      "longitude": 106.682429,
+      "distance": 123
     }
-  ]
+  ],
+  "address_from":  "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+  "volume": "1",
+  "reference_no": "12345"
 }
-```
 
+```
+**Response thành công (HTTP 201):**
+
+```json
+{
+	"success": true,
+	"msg": "update_booking",
+	"data": {
+		"address_from": "261 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+		"address_to": "Rảnh thì bán, 474 Đường Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+		"distance": 2.0,
+		"reference_no": "12345",
+		"etd_time": "2025-12-10T15:25:12.000+07:00",
+		"quantity": 1,
+		"weight": 1.0,
+		"volume": 1.0,
+		"status": "pending",
+		"provinces": "[\"Thành phố Hồ Chí Minh\"]",
+		"districts": "[\"Quận 5\"]",
+		"regions": "[\"Miền Nam\", \"Đông Nam Bộ\"]",
+		"direction": "N",
+		"user_email": "snine1991@gmail.com",
+		"booking_code": "A25225022958",
+		"id": 12237,
+		"employee_id": null,
+		"user_name": "AN PHAM",
+		"user_phone": "0906512162",
+		"user_address": "PLA",
+		"postal_code": null,
+		"unit_nos": null,
+		"company_name": null,
+		"contact_number": null,
+		"customer_email": null,
+		"charges": null,
+		"description": null,
+		"site": null,
+		"updated_at": "2025-12-10T09:46:20.832+07:00",
+		"created_at": "2025-12-10T09:41:23.632+07:00",
+		"schedule_time": "2025-12-10T15:25:12.000+07:00",
+		"company_id": 239,
+		"client_id": 134,
+		"manual": null,
+		"images": null,
+		"shipping_done": null,
+		"toll_gate": null,
+		"eta_time": null,
+		"catalogue_id": null,
+		"group_id": null,
+		"area": null,
+		"staff_id": 239,
+		"reason_reject": null,
+		"deleted_at": null,
+		"admin_description": null,
+		"booking_status": "b_draft",
+		"shipping_status": null,
+		"payment_status": "paid",
+		"address_to_lat": "10.755877",
+		"address_to_long": "106.682429",
+		"address_from_lat": "10.755877",
+		"address_from_long": "106.682429",
+		"time_moving": 1.0,
+		"vehicle_type": null,
+		"vehicle_weight": null,
+		"payment_type": null,
+		"location_from": {
+			"booking_id": 12237,
+			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 477 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
+			"latitude": 10.755877,
+			"longitude": 106.682429,
+			"distance": 123.0,
+			"position": 1,
+			"id": 15674,
+			"created_at": "2025-12-10T09:41:23.836+07:00",
+			"updated_at": "2025-12-10T09:46:20.937+07:00",
+			"deleted_at": null
+		},
+		"location_to": {
+			"booking_id": 12237,
+			"name": "277 Trần bình Trọng , quận 5, thành phố hồ chí minh",
+			"latitude": 10.755877,
+			"longitude": 106.682429,
+			"distance": 123.0,
+			"position": 2,
+			"id": 15675,
+			"created_at": "2025-12-10T09:41:24.330+07:00",
+			"updated_at": "2025-12-10T09:46:21.309+07:00",
+			"deleted_at": null
+		},
+		"current_latitude": 10.755877,
+		"current_longitude": 106.682429,
+		"catalogue_name": null,
+		"client_name": "AN PHAM"
+	}
+}
+
+```
 ---
 
 #### 5.4.5 🗑️ Xóa đơn hàng
@@ -719,7 +940,9 @@ Authorization: {token_user}
 
 ```json
 {
-  "message": "Booking deleted successfully"
+	"success": true,
+	"msg": "destroy_booking",
+	"data": "Destroy success"
 }
 ```
 
