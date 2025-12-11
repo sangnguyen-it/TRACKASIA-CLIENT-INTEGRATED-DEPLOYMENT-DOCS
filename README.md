@@ -1087,7 +1087,7 @@ Authorization: {token_user}
 
 #### 5.5.3 🗑️ Đánh dấu tất cả đã đọc
 
-**Endpoint:** `DELETE /clients/notifications/mark_all_read`
+**Endpoint:** ` POST /clients/notifications/mark_all_read`
 
 **Response thành công:**
 
