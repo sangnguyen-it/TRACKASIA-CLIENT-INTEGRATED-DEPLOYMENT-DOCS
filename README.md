@@ -618,8 +618,8 @@ Authorization: {token_user}
 | `address_to` | String | ✅ | Địa chỉ điểm giao hàng | `456 Lê Lợi, Q3, TP.HCM` |
 | `reference_no` | String | ✅ | Mã tham chiếu/Mã đơn của bạn | `REF-001` |
 | `etd_time` | String | ✅ | Thời gian xuất phát dự kiến | `2025-12-10 08:00` |
-| `eta_time` | String | ✅ | Thời gian đến dự kiến | `2025-12-10 17:00` |
-| `company_name` | String | ✅ | Tên công ty | `Công ty ABC` |
+| `eta_time` | String | ❌ | Thời gian đến dự kiến | `2025-12-10 17:00` |
+| `company_name` | String | ❌ | Tên công ty | `Công ty ABC` |
 | `weight` | String | ✅ | Khối lượng (kg) | `25.5` |
 | `volume` | String | ✅ | Thể tích (m³) | `0.5` |
 | `locations_attributes` | Array | ✅ | Danh sách điểm dừng (tối thiểu 2) | *Xem bên dưới* |
@@ -1230,7 +1230,7 @@ classDiagram
 | `status` | String | ❌ | Trạng thái đơn hàng |
 | `person_in_charge` | String | ✅ | Người phụ trách |
 | `contact_number` | String | ✅ | SĐT liên hệ |
-| `company_name` | String | ✅ | Tên công ty |
+| `company_name` | String | ❌ | Tên công ty |
 | `customer_email` | String | ✅ | Email khách hàng |
 | `charges` | String | ✅ | Phí vận chuyển (VND) |
 | `distance` | String | ✅ | Khoảng cách (km) |
@@ -1253,7 +1253,7 @@ classDiagram
 | `locations_attributes` | Array | ✅ | Các điểm dừng giữa |
 | `schedule_time` | String | ✅ | Ngày giao (YYYY-MM-DD) |
 | `etd_time` | String | ✅ | Thời gian xuất phát |
-| `eta_time` | String | ✅ | Thời gian đến |
+| `eta_time` | String | ❌ | Thời gian đến |
 | `updated_at` | String | ❌ | Thời gian cập nhật |
 | `client_name` | String | ❌ | Tên khách hàng |
 | `address_to_lat` | Double | ❌ | Vĩ độ điểm giao hàng |
