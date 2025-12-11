@@ -978,30 +978,51 @@ Authorization: {token_user}
 
 ```json
 {
-  "data": [
-    {
-      "id": "1001",
-      "target_id": "98765",
-      "title": "Đơn hàng đã được xác nhận",
-      "content": "Đơn hàng BK20251210001 đã được xác nhận và đang chờ lấy hàng",
-      "booking_code": "BK20251210001",
-      "view_type": "booking",
-      "action_type": "status_change_confirm",
-      "reason_reject": null,
-      "created_at": "2025-12-09T08:00:00Z"
-    },
-    {
-      "id": "1002",
-      "target_id": "98765",
-      "title": "Đơn hàng đang được giao",
-      "content": "Đơn hàng BK20251210001 đang được giao đến địa chỉ của bạn",
-      "booking_code": "BK20251210001",
-      "view_type": "booking",
-      "action_type": "status_change_delivering",
-      "reason_reject": null,
-      "created_at": "2025-12-10T09:30:00Z"
-    }
-  ]
+	"success": true,
+	"msg": "list_notifications",
+	"data": [
+		{
+			"id": 420,
+			"notification_id": 335,
+			"is_read": false,
+			"read_at": null,
+			"deleted_at": null,
+			"created_at": "2025-12-11T09:07:06.044+07:00",
+			"updated_at": "2025-12-11T09:24:00.606+07:00",
+			"receiver_id": 134,
+			"receiver_type": "Client",
+			"notification": {
+				"id": 335,
+				"company_id": 239,
+				"kind": "system",
+				"title_vi": "Cập nhật trạng thái đơn vận",
+				"title_en": "Shipping status updated",
+				"body_vi": "Đơn vận D2523115470 - Đã xác nhận",
+				"body_en": "D2523115470 - Confirm",
+				"images": null,
+				"redirect_url": null,
+				"metadata": {
+					"event": "shipping_status_changed",
+					"shipping_id": 1094,
+					"shipping_code": "D2523115470",
+					"status": "confirm",
+					"status_value": 1,
+					"employee_id": 2515,
+					"driver_ids": [
+						2515
+					]
+				},
+				"created_by_type": "Employee",
+				"created_by_id": 2515,
+				"created_at": "2025-12-11T09:07:04.517+07:00",
+				"updated_at": "2025-12-11T09:07:04.517+07:00",
+				"deleted_at": null,
+				"target_type": "Shipping",
+				"target_id": 1094,
+				"is_read": false
+			}
+		}
+	]
 }
 ```
 
@@ -1012,7 +1033,42 @@ Authorization: {token_user}
 **Endpoint:** `GET /clients/notifications/{id}`
 
 **Response:** Tương tự 1 item trong danh sách.
-
+```json
+{
+	"success": true,
+	"msg": "detail_notification",
+	"data": {
+		"id": 335,
+		"company_id": 239,
+		"kind": "system",
+		"title_vi": "Cập nhật trạng thái đơn vận",
+		"title_en": "Shipping status updated",
+		"body_vi": "Đơn vận D2523115470 - Đã xác nhận",
+		"body_en": "D2523115470 - Confirm",
+		"images": null,
+		"redirect_url": null,
+		"metadata": {
+			"event": "shipping_status_changed",
+			"shipping_id": 1094,
+			"shipping_code": "D2523115470",
+			"status": "confirm",
+			"status_value": 1,
+			"employee_id": 2515,
+			"driver_ids": [
+				2515
+			]
+		},
+		"created_by_type": "Employee",
+		"created_by_id": 2515,
+		"created_at": "2025-12-11T09:07:04.517+07:00",
+		"updated_at": "2025-12-11T09:07:04.517+07:00",
+		"deleted_at": null,
+		"target_type": "Shipping",
+		"target_id": 1094,
+		"is_read": false
+	}
+}
+```
 ---
 
 #### 5.5.3 🗑️ Xóa thông báo
@@ -1023,7 +1079,23 @@ Authorization: {token_user}
 
 ```json
 {
-  "message": "Notification deleted successfully"
+	"success": true,
+	"msg": "destroy_notification",
+	"data": "Destroy success"
+}
+```
+
+#### 5.5.3 🗑️ Đánh dấu tất cả đã đọc
+
+**Endpoint:** `DELETE /clients/notifications/mark_all_read`
+
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "mark_all_read",
+	"data": "Marked all as read"
 }
 ```
 
@@ -1044,13 +1116,37 @@ Authorization: {token_user}
 
 ```json
 {
-  "data": [
-    {"id": "1", "name": "Hàng điện tử"},
-    {"id": "2", "name": "Thực phẩm"},
-    {"id": "3", "name": "Hàng dễ vỡ"},
-    {"id": "4", "name": "Tài liệu"},
-    {"id": "5", "name": "Hàng hóa khác"}
-  ]
+	"success": true,
+	"msg": "catalogues",
+	"data": [
+		{
+			"id": 91,
+			"name": "Hàng tổng hợp",
+			"order": 1,
+			"created_at": "2025-05-07T14:30:07.370+07:00",
+			"updated_at": "2025-10-23T14:24:22.302+07:00",
+			"company_id": 239,
+			"status": "active"
+		},
+		{
+			"id": 92,
+			"name": "Thực phẩm",
+			"order": 3,
+			"created_at": "2025-05-07T14:30:07.370+07:00",
+			"updated_at": "2025-10-23T14:30:16.243+07:00",
+			"company_id": 239,
+			"status": "active"
+		},
+		{
+			"id": 98,
+			"name": "Hàng lẻ",
+			"order": 3,
+			"created_at": "2025-10-23T14:30:42.292+07:00",
+			"updated_at": "2025-10-23T14:30:42.292+07:00",
+			"company_id": 239,
+			"status": "active"
+		}
+	]
 }
 ```
 
@@ -1086,37 +1182,6 @@ Authorization: {token_user}
   "data": {
     "id": 789,
     "device_id": "550e8400-e29b-41d4-a716-446655440000"
-  }
-}
-```
-
----
-
-### 5.8 API Upload File
-
-#### 5.8.1 📤 Upload Base64
-
-**Endpoint:** `POST /upload-base64`
-
-| Thuộc tính | Giá trị |
-|------------|---------|
-| URL đầy đủ | `https://tms.track-asia.com/api/v1/upload-base64` |
-| Content-Type | `application/x-www-form-urlencoded` |
-| Auth Required | ✅ Có |
-
-**Request Parameters:**
-
-| Tham số | Kiểu | Bắt buộc | Mô tả |
-|---------|------|----------|-------|
-| `data` | String | ✅ | Dữ liệu file Base64 (không prefix) |
-| `format` | String | ✅ | Định dạng: `jpeg`, `png`, `pdf` |
-
-**Response thành công:**
-
-```json
-{
-  "data": {
-    "url": "/uploads/files/file_1702000000.jpeg"
   }
 }
 ```
@@ -1162,7 +1227,6 @@ classDiagram
 |--------|------|----------|-------|
 | `id` | Integer | ❌ | ID đơn hàng |
 | `booking_code` | String | ❌ | Mã đơn hàng hệ thống |
-| `booking_code2` | String | ✅ | Mã tham chiếu phụ |
 | `status` | String | ❌ | Trạng thái đơn hàng |
 | `person_in_charge` | String | ✅ | Người phụ trách |
 | `contact_number` | String | ✅ | SĐT liên hệ |
