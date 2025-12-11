@@ -1255,7 +1255,15 @@ classDiagram
 | `etd_time` | String | ✅ | Thời gian xuất phát |
 | `eta_time` | String | ✅ | Thời gian đến |
 | `updated_at` | String | ❌ | Thời gian cập nhật |
-
+| `client_name` | String | ❌ | Tên khách hàng |
+| `address_to_lat` | Double | ❌ | Vĩ độ điểm giao hàng |
+| `address_to_long` | Double | ❌  | Kinh độ điểm giao hàng |
+| `address_from_lat` | Double | ❌ | Vĩ độ điểm lấy hàng |
+| `address_from_long` | Double | ❌ | Kinh độ điểm giao hàng|
+| `time_moving` | float | ❌  | Thời gian di chuyển giữa điểm lấy hàng và giao hàng |
+| `vehicle_type` | integer | ❌  | Loại phương tiên ( xe bạc, xe kín, container...) |
+| `vehicle_weight` | float | ❌ | Khối lượng xe yêu cầu chở hàng |
+| `payment_type` | integer | ❌ | Loại thanh toán (chuyển khoản, tiền măt ...) |
 ---
 
 ### 6.3 TrackLocation Model
@@ -1267,7 +1275,7 @@ classDiagram
 | `latitude` | Double | ❌ | Vĩ độ |
 | `longitude` | Double | ❌ | Kinh độ |
 | `distance` | Double | ✅ | Khoảng cách từ điểm trước |
-| `position` | Integer | ❌ | Thứ tự (1, 2, 3...) |
+| `position` | Integer | ❌ | Thứ tự (1, 2) |
 | `booking_id` | Integer | ✅ | ID đơn hàng liên quan |
 | `created_at` | String | ✅ | Thời gian tạo |
 | `updated_at` | String | ✅ | Thời gian cập nhật |
