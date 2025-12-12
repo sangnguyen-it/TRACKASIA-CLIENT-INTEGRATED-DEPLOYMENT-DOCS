@@ -447,6 +447,7 @@ Authorization: {token_user}
 			"vehicle_type": null,
 			"vehicle_weight": null,
 			"payment_type": null,
+			"pickup_contact": "0906512111",
 			"location_from": {
 				"id": 15670,
 				"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -567,6 +568,7 @@ Authorization: {token_user}
 		"vehicle_type": null,
 		"vehicle_weight": null,
 		"payment_type": null,
+		"pickup_contact": "0906512111",
 		"location_from": {
 			"id": 15670,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -634,8 +636,9 @@ Authorization: {token_user}
 | `distance` | String | Khoảng cách (km) | `5.2` |
 | `quantity` | String | Số lượng kiện hàng | `3` |
 | `schedule_time` | String | Ngày giao hàng (YYYY-MM-DD) | `2025-12-10` |
-| `contact_number` | String | Số điện thoại liên hệ | `0912345678` |
+| `contact_number` | String | Số điện thoại liên hệ giao hàng | `0912345678` |
 | `catalogue_id` | String | ID loại hàng hóa (từ API catalogues) | `1` or null: Lấy tất cả|
+| `pickup_contact` | String | Số điện thoại lấy hàng | `0906512111` |
 
 **Cấu trúc `locations_attributes`:**
 
@@ -744,6 +747,7 @@ Authorization: {token_user}
 		"vehicle_type": null,
 		"vehicle_weight": null,
 		"payment_type": null,
+        "pickup_contact": "0906512111",
 		"location_from": {
 			"id": 15674,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -885,6 +889,7 @@ Authorization: {token_user}
 		"vehicle_type": null,
 		"vehicle_weight": null,
 		"payment_type": null,
+        "pickup_contact": "0906512111",
 		"location_from": {
 			"booking_id": 12237,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 477 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
