@@ -639,6 +639,7 @@ Authorization: {token_user}
 | `contact_number` | String | Số điện thoại liên hệ giao hàng | `0912345678` |
 | `catalogue_id` | String | ID loại hàng hóa (từ API catalogues) | `1` or null: Lấy tất cả|
 | `pickup_contact` | String | Số điện thoại lấy hàng | `0906512111` |
+| `booking_status` | String | Trạng thái của đơn | `b_draft: Đơn nháp (Chỉ hiển thị ở page quản lý đơn), b_pending: Chờ xác nhận (Giống với đã xác nhận nhưng cần điều phối xác nhận lại thông tin đơn), b_accepted: Đã xác nhận (Sẽ hiển thị mục điều phối đơn)` |
 
 **Cấu trúc `locations_attributes`:**
 
