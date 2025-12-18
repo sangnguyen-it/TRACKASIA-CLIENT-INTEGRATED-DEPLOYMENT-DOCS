@@ -1,4 +1,4 @@
-# TrackAsia TMS Client API – Kế hoạch tích hợp & tài liệu tham chiếu
+<img width="468" height="56" alt="image" src="https://github.com/user-attachments/assets/4cec2fbd-d336-4ee3-9284-c872d3fa4502" /><img width="468" height="56" alt="image" src="https://github.com/user-attachments/assets/b17468f5-5f88-40a7-b73f-e35adc429e6b" /># TrackAsia TMS Client API – Kế hoạch tích hợp & tài liệu tham chiếu
 
 > **Mục tiêu tài liệu**  
 > Cung cấp một bộ hướng dẫn tích hợp cho đối tác khi kết nối nhóm API *Client* của TrackAsia TMS. Tài liệu tập trung vào **đặc tả API**, **mô hình dữ liệu**, **quy trình triển khai**, **tiêu chuẩn bảo mật**, kèm **hình minh họa** đã chuẩn bị sẵn
@@ -1189,6 +1189,463 @@ Authorization: {token_user}
     "id": 789,
     "device_id": "550e8400-e29b-41d4-a716-446655440000"
   }
+}
+```
+
+### 5.8 Admin API (Drivers, Vehicles)
+
+#### 5.8.1  Danh sách tài xế
+**Endpoint:** `GET /companies/drivers`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/companies/drivers` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |Token lấy trong Profile admin tại link 
+https://tms.track-asia.com/admin/profiles/{id_admin} |
+
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "Get list of drivers successfully",
+	"data": [
+		{
+			"id": 2512,
+			"email": "driver37@gmail.com",
+			"password_digest": "$2a$12$5.afCg/ZkqfAnT889bF.OeS5xt.H1eKn72FzDQGkkLS58mc9bJmEW",
+			"name": "Driver 37",
+			"address": "85 đường Phạm Hùng, Phường Phước Nguyên, Thành phố Bà Rịa, Bà Rịa - Vũng Tàu",
+			"open_id": null,
+			"open_token": null,
+			"verify_code": null,
+			"token_user": null,
+			"image": null,
+			"status": "active",
+			"slug": null,
+			"updated_at": "2025-05-07T14:30:04.258+07:00",
+			"phone_number": "6223695101",
+			"birthday": null,
+			"points": null,
+			"membership": null,
+			"accountkit_id": null,
+			"verified": 0,
+			"qr_code": null,
+			"bar_code": null,
+			"role_chat": "client",
+			"uid_code": null,
+			"company_id": 239,
+			"current_device_type": null,
+			"current_device_name": null,
+			"current_os_version": null,
+			"current_app_version": null,
+			"current_device_id": null,
+			"current_device_token": null,
+			"active_code": null,
+			"device": null,
+			"current_latitude": 10.50085,
+			"current_longitude": 107.17791,
+			"who_add": null,
+			"vehicle_id": 1058,
+			"salary_base": 0.0,
+			"deleted_at": null,
+			"choose_vehicle": null,
+			"img_driver": null,
+			"info_license": null,
+			"img_license": null,
+			"remark": null,
+			"expired_license": null,
+			"bank_name": null,
+			"bank_code": null,
+			"bank_branch": null,
+			"bank_qrcode": null,
+			"experience_level": null,
+			"driver_status": null,
+			"img_citizen": null,
+			"time_out": 322573,
+			"has_shipping": {
+				"load": 0,
+				"fullload": 0
+			},
+			"vehicle_type": "moto",
+			"free_time_driver": "Đang rảnh",
+			"shipping_current_code": null,
+			"shipping_current_id": null,
+			"vehicle": {
+				"name": "Xe máy (Mitsubishi-VGQ-5653L)",
+				"w_vl": "3.06t",
+				"name_icon": "Mitsubishi-VGQ-5653L"
+			}
+		}
+	]
+} 
+
+```
+
+#### 5.8.2  Tạo tài xế
+**Endpoint:** `POST /companies/create_driver`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/companies/create_driver` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |Token lấy trong Profile admin tại link 
+https://tms.track-asia.com/admin/profiles/{id_admin} |
+
+**Request mẫu:**
+
+```json
+{
+  "driver": {
+    "name": "Nguyen Van A",
+    "phone_number": "09123453739",
+    "address": "Ha Noi",
+    "email": "driver222@example.com",
+		"password": "123456",
+		"password_confirmation": "123456"
+  }
+}
+```
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "Create driver successfully",
+	"data": {
+		"id": 2573,
+		"email": "driver222@example.com",
+		"password_digest": "$2a$12$PYvQm/LWwtx52mQk8M6buOUFLzCaakO7qxcBFRQzutkaZxjMESoee",
+		"name": "Nguyen Van A",
+		"address": "Ha Noi",
+		"open_id": null,
+		"open_token": null,
+		"verify_code": null,
+		"token_user": null,
+		"image": null,
+		"status": "active",
+		"slug": null,
+		"updated_at": "2025-12-18T13:40:00.435+07:00",
+		"phone_number": "09123453739",
+		"birthday": null,
+		"points": null,
+		"membership": null,
+		"accountkit_id": null,
+		"verified": 0,
+		"qr_code": null,
+		"bar_code": null,
+		"role_chat": "client",
+		"uid_code": null,
+		"company_id": 239,
+		"current_device_type": null,
+		"current_device_name": null,
+		"current_os_version": null,
+		"current_app_version": null,
+		"current_device_id": null,
+		"current_device_token": null,
+		"active_code": null,
+		"device": null,
+		"current_latitude": 10.8230989,
+		"current_longitude": 106.6296638,
+		"who_add": null,
+		"vehicle_id": null,
+		"salary_base": 0.0,
+		"deleted_at": null,
+		"choose_vehicle": "disallow",
+		"img_driver": null,
+		"info_license": null,
+		"img_license": null,
+		"remark": null,
+		"expired_license": null,
+		"bank_name": null,
+		"bank_code": null,
+		"bank_branch": null,
+		"bank_qrcode": null,
+		"experience_level": "experienced_driver",
+		"driver_status": "available",
+		"img_citizen": null,
+		"time_out": 0,
+		"has_shipping": {
+			"load": 0,
+			"fullload": 0
+		},
+		"vehicle_type": null,
+		"free_time_driver": "Đang rảnh",
+		"shipping_current_code": null,
+		"shipping_current_id": null
+	}
+}
+
+```
+
+#### 5.8.3  Danh sách phương tiện
+**Endpoint:** `GET /companies/vehicles`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/companies/vehicles` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |Token lấy trong Profile admin tại link 
+https://tms.track-asia.com/admin/profiles/{id_admin} |
+
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "Get list of vehicles successfully",
+	"data": [
+		{
+			"id": 1054,
+			"stt": null,
+			"group": null,
+			"plate": "IEO-6158E",
+			"product_year": "2019",
+			"model": "Chevrolet",
+			"vehicle_type": "sealed_truck",
+			"created_at": "2025-05-07T14:29:35.893+07:00",
+			"updated_at": "2025-05-07T14:29:35.893+07:00",
+			"company_id": 239,
+			"vehicle_of": "company",
+			"weight": 8605.0,
+			"length": 18000.0,
+			"height": 2500.0,
+			"width": 2500.0,
+			"status": 1,
+			"oil_level": 0.0,
+			"catalogue_id": null,
+			"staff_id": null,
+			"pallet_max": 6.0,
+			"deleted_at": null,
+			"fuel_type": "oil",
+			"fuel_level": 10.0,
+			"container_width": 2450.0,
+			"container_length": 17950.0,
+			"container_height": 2450.0,
+			"latitude": null,
+			"longitude": null,
+			"remark": null,
+			"inspection_date": null,
+			"inspection_expired": null,
+			"inspection_image": null
+		},
+		{
+			"id": 1055,
+			"stt": null,
+			"group": null,
+			"plate": "OWD-6845C",
+			"product_year": "2017",
+			"model": "Ram",
+			"vehicle_type": "truck_has_hood",
+			"created_at": "2025-05-07T14:29:35.893+07:00",
+			"updated_at": "2025-05-07T14:29:35.893+07:00",
+			"company_id": 239,
+			"vehicle_of": "other",
+			"weight": 11901.0,
+			"length": 18000.0,
+			"height": 2500.0,
+			"width": 2500.0,
+			"status": 1,
+			"oil_level": 0.0,
+			"catalogue_id": null,
+			"staff_id": null,
+			"pallet_max": 10.0,
+			"deleted_at": null,
+			"fuel_type": "oil",
+			"fuel_level": 14.0,
+			"container_width": 2450.0,
+			"container_length": 17950.0,
+			"container_height": 2450.0,
+			"latitude": null,
+			"longitude": null,
+			"remark": null,
+			"inspection_date": null,
+			"inspection_expired": null,
+			"inspection_image": null
+		}
+	]
+}
+
+```
+
+#### 5.8.4  Tạo tài phương tiện
+**Endpoint:** `POST /companies/create_vehicle`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/companies/create_vehicle` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |Token lấy trong Profile admin tại link 
+https://tms.track-asia.com/admin/profiles/{id_admin} |
+
+**Request mẫu:**
+
+```json
+ 
+{
+	"vehicle": {
+    "plate": "29A-16345",
+    "width": 200,
+    "length": 500,
+    "height": 250,
+    "vehicle_type": "truck_has_hood",
+    "model": "Hino",
+    "weight": 5000
+  }
+}
+```
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "Create vehicle successfully",
+	"data": {
+		"id": 1174,
+		"stt": null,
+		"group": null,
+		"plate": "29A-16345",
+		"product_year": null,
+		"model": "Hino",
+		"vehicle_type": "truck_has_hood",
+		"created_at": "2025-12-17T15:13:59.281+07:00",
+		"updated_at": "2025-12-17T15:13:59.281+07:00",
+		"company_id": 239,
+		"vehicle_of": null,
+		"weight": 5000.0,
+		"length": 500.0,
+		"height": 250.0,
+		"width": 200.0,
+		"status": null,
+		"oil_level": null,
+		"catalogue_id": null,
+		"staff_id": null,
+		"pallet_max": null,
+		"deleted_at": null,
+		"fuel_type": "oil",
+		"fuel_level": null,
+		"container_width": null,
+		"container_length": null,
+		"container_height": null,
+		"latitude": null,
+		"longitude": null,
+		"remark": null,
+		"inspection_date": null,
+		"inspection_expired": null,
+		"inspection_image": null
+	}
+}
+
+```
+
+#### 5.8.5  Tạo phương tiện và gán cho tài xế 
+**Endpoint:** `POST /companies/setup_driver_vehicle`
+
+| Thuộc tính | Giá trị |
+|------------|---------|
+| URL đầy đủ | `https://tms.track-asia.com/api/v1/companies/setup_driver_vehicle` |
+| Content-Type | `application/json` |
+| Auth Required | ✅ Có |Token lấy trong Profile admin tại link 
+https://tms.track-asia.com/admin/profiles/{id_admin} |
+
+**Request mẫu:**
+
+```json
+ 
+{
+  "vehicle": {
+    "plate": "29A-12345",
+    "width": 200,
+    "length": 500,
+    "height": 250,
+    "vehicle_type": "truck_has_hood",
+    "model": "Hino",
+    "weight": 5000
+  },
+  "driver": {
+    "name": "Nguyen Van A",
+    "phone_number": "09123454759",
+    "address": "Ha Noi",
+    "email": "driver6@example.com",
+		"password": "123456",
+		"password_confirmation": "123456"
+  }
+}
+```
+**Response thành công:**
+
+```json
+{
+	"success": true,
+	"msg": "Setup successfully",
+	"data": {
+		"id": 2572,
+		"email": "driver6@example.com",
+		"password_digest": "$2a$12$77CdWb0Nu9dDRY1Bhpucvu9WcWv3iKtXSbaNnxbyfejz3fOx9o2Ni",
+		"name": "Nguyen Van A",
+		"address": "Ha Noi",
+		"open_id": null,
+		"open_token": null,
+		"verify_code": null,
+		"token_user": null,
+		"image": null,
+		"status": "active",
+		"slug": null,
+		"updated_at": "2025-12-17T14:55:35.257+07:00",
+		"phone_number": "09123454759",
+		"birthday": null,
+		"points": null,
+		"membership": null,
+		"accountkit_id": null,
+		"verified": 0,
+		"qr_code": null,
+		"bar_code": null,
+		"role_chat": "client",
+		"uid_code": null,
+		"company_id": 239,
+		"current_device_type": null,
+		"current_device_name": null,
+		"current_os_version": null,
+		"current_app_version": null,
+		"current_device_id": null,
+		"current_device_token": null,
+		"active_code": null,
+		"device": null,
+		"current_latitude": 10.8230989,
+		"current_longitude": 106.6296638,
+		"who_add": null,
+		"vehicle_id": 1173,
+		"salary_base": 0.0,
+		"deleted_at": null,
+		"choose_vehicle": "disallow",
+		"img_driver": null,
+		"info_license": null,
+		"img_license": null,
+		"remark": null,
+		"expired_license": null,
+		"bank_name": null,
+		"bank_code": null,
+		"bank_branch": null,
+		"bank_qrcode": null,
+		"experience_level": "experienced_driver",
+		"driver_status": "available",
+		"img_citizen": null,
+		"time_out": 0,
+		"has_shipping": {
+			"load": 0,
+			"fullload": 0
+		},
+		"vehicle_type": "truck_has_hood",
+		"free_time_driver": "Đang rảnh",
+		"shipping_current_code": null,
+		"shipping_current_id": null,
+		"vehicle": {
+			"name": "Tải có mui (Hino-29A-12345)",
+			"w_vl": "5.0t",
+			"name_icon": "Hino-29A-12345"
+		}
+	}
 }
 ```
 
