@@ -1302,8 +1302,9 @@ https://tms.track-asia.com/admin/profiles/{id_admin} |
     "phone_number": "09123453739",
     "address": "Ha Noi",
     "email": "driver222@example.com",
-		"password": "123456",
-		"password_confirmation": "123456"
+    "password": "123456",
+    "password_confirmation": "123456",
+    "is_update_profile": true
   }
 }
 ```
@@ -1373,7 +1374,8 @@ https://tms.track-asia.com/admin/profiles/{id_admin} |
 		"vehicle_type": null,
 		"free_time_driver": "Đang rảnh",
 		"shipping_current_code": null,
-		"shipping_current_id": null
+		"shipping_current_id": null,
+        "is_update_profile": true
 	}
 }
 
@@ -1568,8 +1570,9 @@ https://tms.track-asia.com/admin/profiles/{id_admin} |
     "phone_number": "09123454759",
     "address": "Ha Noi",
     "email": "driver6@example.com",
-		"password": "123456",
-		"password_confirmation": "123456"
+    "password": "123456",
+    "password_confirmation": "123456",
+    "is_update_profile": true
   }
 }
 ```
