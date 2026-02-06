@@ -448,7 +448,9 @@ Authorization: {token_user}
 			"vehicle_weight": null,
 			"payment_type": null,
 			"pickup_contact": "0906512111",
-            "pickup_name: "NGUYEN VAN A"
+            "pickup_name: "NGUYEN VAN A",
+			"from": "Điểm lấy hàng",
+			"to": "Điểm giao hàng",
 			"location_from": {
 				"id": 15670,
 				"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -570,7 +572,9 @@ Authorization: {token_user}
 		"vehicle_weight": null,
 		"payment_type": null,
 		"pickup_contact": "0906512111",
-		"pickup_name": "NGUYEN VAN A"
+		"pickup_name": "NGUYEN VAN A",
+		"from": "Điểm lấy hàng",
+	    "to": "Điểm giao hàng",
 		"location_from": {
 			"id": 15670,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -642,6 +646,8 @@ Authorization: {token_user}
 | `catalogue_id` | String | ID loại hàng hóa (từ API catalogues) | `1` or null: Lấy tất cả|
 | `pickup_contact` | String | Số điện thoại lấy hàng | `0906512111` |
 | `pickup_name` | String | Tên người lấy hàng | `NGUYEN VAN A` |
+| `from` | String | Điểm lấy hàng | `261 Trần Bình Trọng` |
+| `to` | String | Điểm giao hàng | `113 Trần Bình Trọng` |
 | `booking_status` | String | Trạng thái của đơn | `b_draft: Đơn nháp (Chỉ hiển thị ở page quản lý đơn), b_pending: Chờ xác nhận (Giống với đã xác nhận nhưng cần điều phối xác nhận lại thông tin đơn), b_accepted: Đã xác nhận (Sẽ hiển thị mục điều phối đơn)` |
 
 **Cấu trúc `locations_attributes`:**
@@ -755,6 +761,8 @@ Authorization: {token_user}
 		"payment_type": null,
         "pickup_contact": "0906512111",
 		"pickup_name": "NGUYEN VAN A",
+		"from": "Điểm lấy hàng",
+		"to": "Điểm giao hàng",
 		"location_from": {
 			"id": 15674,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 472 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
@@ -900,6 +908,8 @@ Authorization: {token_user}
 		"payment_type": null,
         "pickup_contact": "0909888777",
         "pickup_name": "NGUYEN VAN B",
+		"from": "Điểm lấy hàng",
+		"to": "Điểm giao hàng",
 		"location_from": {
 			"booking_id": 12237,
 			"name": "Cửa Hàng Văn Phòng Phẩm Hùng Hà, 477 Trần Hưng Đạo, Phường 2, Quận 5, Thành phố Hồ Chí Minh",
